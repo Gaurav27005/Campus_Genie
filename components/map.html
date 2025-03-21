@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Map - Campus Genie</title>
+    <link rel="icon" type="image/png" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="viewmap.css">
+</head>
+<body>
+    <header>
+        <div class="brand">Campus Genie - View Map</div>
+    </header>
+
+    <main>
+        <div class="floor-section">
+            <!-- Unified Image to the Left -->
+            <img src="../assets/image 22.png" alt="Unified Campus Map Image" class="floor-image">
+
+            <!-- Buttons for Floor Selection -->
+            <div class="floor-buttons">
+                <button id="ground-floor" class="btn" onclick="showMap('ground')">Ground Floor</button>
+                <button id="first-floor" class="btn" onclick="showMap('first')">First Floor</button>
+                <button id="second-floor" class="btn" onclick="showMap('second')">Second Floor</button>
+            </div>
+        </div>
+
+        <!-- Campus Map Display Below -->
+        <div class="map-container">
+            <img id="map-image" src="" alt="Selected Campus Map" class="map-img">
+        </div>
+
+        <!-- Google Maps Location -->
+        <div class="google-map">
+            <h3>Locate Us on Google Maps</h3>
+            <a href="https://www.google.com/maps/place/YourCollegeLocation" target="_blank">
+                <img src= "https://maps.googleapis.com/maps/api/staticmap?scale=2&amp;center=dy%20patil%20college%20of%20engineering%2C%20Akurdi&amp;zoom=15&amp;size=600x600&amp;maptype=roadmap&amp;key=AIzaSyCOHu6yxeJ1XAG6Rji_9j6kIaJVtUbrddk" style="height: 500px;" alt="Google Map Preview" class="google-map-img">
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showMap(floor) {
+            const mapImage = document.getElementById('map-image');
+            if (floor === 'ground') {
+                mapImage.src = 'ground-floor-map.jpg'; // Replace with your Ground Floor Map image
+            } else if (floor === 'first') {
+                mapImage.src = 'first-floor-map.jpg'; // Replace with your First Floor Map image
+            } else if (floor === 'second') {
+                mapImage.src = 'second-floor-map.jpg'; // Replace with your Second Floor Map image
+            }
+        }
+    </script>
+</body>
+</html>
