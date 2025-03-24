@@ -1,19 +1,28 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FBE4D6;
-    color: #333;
+    background-color: #0a0a0a;
+    color: #ffffff;
     text-align: center;
 }
 
 header {
-    background-color: #0C0950;
-    color: #FBE4D6;
+    background-color: rgba(20, 20, 20, 0.95);
+    color: #ffffff;
     padding: 15px 20px;
     font-size: 1.8rem;
     font-weight: bold;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.brand {
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 main {
@@ -25,35 +34,64 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px; /* Increased space between the image and buttons */
+    gap: 30px;
     margin: 30px 0;
+    background: rgba(30, 30, 30, 0.5);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .floor-image {
-    width: 300px; /* Unified image for all floors */
+    width: 300px;
     height: auto;
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.floor-image:hover {
+    transform: scale(1.02);
 }
 
 .floor-buttons {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Added more space between the buttons */
+    gap: 20px;
 }
 
 .btn {
-    padding: 12px 25px; /* Adjusted padding for a more spacious button look */
-    background-color: #0C0950;
-    color: #FBE4D6;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: #ffffff;
     font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn:hover {
-    background-color: #0C0950;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2));
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 /* Map Container Styles */
@@ -64,34 +102,45 @@ main {
 .map-img {
     max-width: 100%;
     height: auto;
-    border: 2px solid #FBE4D6;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ff6b6b;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.map-img:hover {
+    transform: scale(1.01);
 }
 
 /* Google Map Styles */
 .google-map {
     margin-top: 40px;
+    background: rgba(30, 30, 30, 0.5);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .google-map h3 {
-    margin-bottom: 10px;
-    color: #0C0950;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-weight: bold;
 }
 
-.google-map-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+.google-map iframe {
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
 }
 
 /* Footer Styles */
 footer {
-    background-color: #333;
-    color: #FBE4D6;
-    padding: 15px;
-    font-size: 0.9rem;
+    background-color: rgba(20, 20, 20, 0.95);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
 }
