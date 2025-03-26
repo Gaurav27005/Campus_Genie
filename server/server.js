@@ -18,13 +18,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/campusgen
 // Routes
 const lostFoundRoutes = require('./routes/lostFound');
 const authRoutes = require('./routes/auth');
-const materialsRoutes = require('./routes/materials');
 const marketplaceRoutes = require('./routes/marketplace');
-const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin'); // Add this line to import admin routes
 
 app.use('/api/lostandfound', lostFoundRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/materials', materialsRoutes);
+app.use('/api/materials', require('./routes/materials'));
 app.use('/api/marketplace', marketplaceRoutes);
 app.use('/api/admin', adminRoutes);
 
