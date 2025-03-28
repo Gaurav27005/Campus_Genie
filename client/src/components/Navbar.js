@@ -51,6 +51,7 @@ const Navbar = () => {
       <Link to="/" className="nav-logo">
         <img src="/assets/noto_man-genie.png" alt="Genie" />
       </Link>
+      
       <div className="nav-links">
         <Link to="/">Home</Link>
         

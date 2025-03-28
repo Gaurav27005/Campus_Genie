@@ -44,7 +44,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <div className="admin-sidebar">
         <div className="admin-logo">
-          <img src={process.env.PUBLIC_URL + "/assets/noto_man-genie.png"} alt="Campus Genie" />
+          <img src="/assets/noto_man-genie.png" alt="Campus Genie" />
           <h2>Admin Panel</h2>
         </div>
         

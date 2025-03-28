@@ -46,7 +46,7 @@ const StudyMaterials = () => {
     <div>
       <nav className="navbar">
         <Link to="/" className="nav-logo">
-          <img src={process.env.PUBLIC_URL + "/assets/noto_man-genie.png"} alt="Genie" />
+          <img src="/assets/noto_man-genie.png" alt="Genie" />
         </Link>
         <div className="nav-links">
           <Link to="/">Home</Link>

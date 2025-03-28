@@ -36,6 +36,7 @@ const Marketplace = () => {
         setLoading(false);
         
         // Fallback to mock data if API fails
+        // In the useEffect where you're setting mock data
         const mockItems = [
           {
             _id: '1',
@@ -45,11 +46,11 @@ const Marketplace = () => {
             category: 'Books',
             condition: 'Used - Good',
             contactInfo: 'john.doe@example.com',
-            imageUrl: 'https://via.placeholder.com/150',
+            imageUrl: '/assets/book.jpg', // Update with actual image path
             postedDate: '2023-04-15',
             seller: 'John Doe'
           },
-          // ... other mock items
+          // ... other mock items with updated image paths
         ];
         
         setItems(mockItems);
