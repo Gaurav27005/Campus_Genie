@@ -14,6 +14,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import './App.css';
+import StudyMaterials from './pages/StudyMaterials';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/find-items" element={<FindItems />} />
         <Route path="/post-item" element={<PostItem />} />
         <Route path="/map" element={<Map />} />
-        <Route path="/materials" element={<Materials />} />
+        <Route path="/materials" element={<StudyMaterials />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
