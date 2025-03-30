@@ -3,7 +3,7 @@ const router = express.Router();
 const Material = require('../models/Material');
 
 // @route   GET api/materials
-// @desc    Get all study materials
+// @desc    Get all materials
 // @access  Public
 router.get('/', async (req, res) => {
   try {
@@ -15,33 +15,20 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   GET api/materials/subject/:subject
-// @desc    Get materials by subject
-// @access  Public
-router.get('/subject/:subject', async (req, res) => {
-  try {
-    const materials = await Material.find({ subject: req.params.subject }).sort({ uploadDate: -1 });
-    res.json(materials);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
 // @route   POST api/materials
-// @desc    Add new study material
+// @desc    Add new material
 // @access  Public (should be Private in production)
 router.post('/', async (req, res) => {
-  const { title, description, subject, materialType, fileUrl } = req.body;
+  const { title, subject, description, fileUrl } = req.body;
 
   try {
     const newMaterial = new Material({
       title,
-      description,
       subject,
-      materialType, // 'notes', 'pyq', etc.
+      description,
       fileUrl,
-      uploadedBy: req.body.uploadedBy || 'Anonymous' // In a real app with auth, this would come from the token
+      // In a real app with authentication:
+      // uploadedBy: req.user.id
     });
 
     const material = await newMaterial.save();
@@ -74,7 +61,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // @route   DELETE api/materials/:id
-// @desc    Delete a study material
+// @desc    Delete a material
 // @access  Public (should be Private in production)
 router.delete('/:id', async (req, res) => {
   try {

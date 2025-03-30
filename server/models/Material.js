@@ -5,35 +5,26 @@ const MaterialSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: {
-    type: String,
-    required: true
-  },
   subject: {
     type: String,
     required: true
   },
-  materialType: {
+  description: {
     type: String,
-    required: true,
-    enum: ['notes', 'pyq', 'other']
+    required: true
   },
   fileUrl: {
     type: String,
     required: true
   },
   uploadedBy: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   uploadDate: {
     type: Date,
     default: Date.now
-  },
-  downloads: {
-    type: Number,
-    default: 0
   }
 });
 
-module.exports = mongoose.model('material', MaterialSchema);
+module.exports = mongoose.model('Material', MaterialSchema);
