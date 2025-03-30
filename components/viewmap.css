@@ -10,19 +10,53 @@ body {
 
 header {
     background-color: rgba(20, 20, 20, 0.95);
-    color: #ffffff;
-    padding: 15px 20px;
-    font-size: 1.8rem;
-    font-weight: bold;
+    padding: 25px 40px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.Genie {
+    position: relative;
+    align-items: center;
+}
+
+.Genie img {
+    width: 60px;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
 .brand {
-    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    flex: 1;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    background: linear-gradient(270deg, #ff6b6b, #ff9f43, #ff6b6b, #ff9f43);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
 
 main {
@@ -32,27 +66,51 @@ main {
 /* Floor Section Styles */
 .floor-section {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    margin: 30px 0;
-    background: rgba(30, 30, 30, 0.5);
-    padding: 30px;
+    margin: 30px auto;
+    background: rgba(45, 45, 45, 0.8);
+    padding: 40px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 1200px;
+    gap: 30px;
 }
 
-.floor-image {
+.floor-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.floor-illustration {
     width: 300px;
     height: auto;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
-    transition: transform 0.3s ease;
+    opacity: 0.9;
+    transition: all 0.3s ease;
 }
 
-.floor-image:hover {
-    transform: scale(1.02);
+.btn {
+    width: 250px;
+    height: 80px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.floor-illustration:hover {
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 .floor-buttons {
@@ -143,4 +201,28 @@ footer {
     text-align: center;
     padding: 20px;
     backdrop-filter: blur(10px);
+}
+
+
+/* Enhanced Transitions */
+.floor-buttons .btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.floor-buttons .btn:nth-child(1) { transition-delay: 0.1s; }
+.floor-buttons .btn:nth-child(2) { transition-delay: 0.2s; }
+.floor-buttons .btn:nth-child(3) { transition-delay: 0.3s; }
+
+.floor-buttons .btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
+}
+
+.floor-illustration {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.map-img {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
