@@ -80,7 +80,7 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <div className="page-wrapper">
       <Navbar />
       <main className="profile-container">
         <div className="profile-header">
@@ -214,7 +214,7 @@ const Profile = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

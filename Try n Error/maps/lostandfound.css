@@ -16,100 +16,15 @@ body {
     flex-direction: column;
 }
 
-/* Navbar Styles - Updated to match marketplace */
+/* Navbar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(10, 10, 10, 0.2);
-    color: #ffffff;
-    padding: 8px 15px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.navbar.scrolled {
     background-color: rgba(20, 20, 20, 0.95);
+    padding: 15px 20px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Add lostandfound header styles */
-.lostandfound-container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.lostandfound-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.lostandfound-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-}
-
-/* Button styles for Find Item and Post Item */
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
-    color: #ffffff;
-    border-radius: 30px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
-    text-decoration: none;
-    margin-left: 10px;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-}
-
-.btn:active {
-    transform: translateY(-1px);
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.7s ease;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 10px;
+    backdrop-filter: blur(10px);
 }
 
 .nav-logo img {
@@ -198,9 +113,4 @@ footer {
     padding: 20px;
     background-color: rgba(20, 20, 20, 0.95);
     backdrop-filter: blur(10px);
-}
-
-/* Add padding to account for fixed navbar */
-main {
-    padding-top: 70px;
 }
