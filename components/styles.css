@@ -13,9 +13,58 @@ h2 {
     font-weight: 600;
 }
 
-a {
+/* Link and Button Transitions */
+a, .btn {
     text-decoration: none;
     color: inherit;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+a:not(.btn):after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+}
+
+a:not(.btn):hover:after {
+    width: 100%;
+}
+
+.btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn::before {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+.Genie {
+    transition: transform 0.4s ease-in-out;
+}
+
+.Genie:hover {
+    transform: scale(1.1) rotate(5deg);
 }
 
 /* Header and Navbar */
@@ -23,15 +72,27 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(20, 20, 20, 0.95);
-    color: #ffffff;
-    padding: 15px 20px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+}
+
+.Genie img {
+    width: 60px;
+    height: auto;
+}
+
+.Genie:hover {
+    transform: scale(1.1);
 }
 
 .brand {
-    font-size: 2.8rem;
+    font-size: 3.5rem;
     font-weight: bold;
     background: linear-gradient(270deg, #ff6b6b, #ff9f43, #ff6b6b, #ff9f43);
     background-size: 200% auto;
@@ -41,27 +102,41 @@ header {
     animation: gradient 3s linear infinite;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% center;
-    }
-    100% {
-        background-position: -200% center;
-    }
-}
-
 .navbar {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.nav-left {
+    margin-right: auto;
+}
+
+.nav-right {
+    margin-left: auto;
 }
 
 .navbar a {
     color: #ffffff;
     font-weight: 500;
-    padding: 10px 15px;
+    padding: 12px 25px;
     transition: all 0.3s ease;
-    border-radius: 5px;
+    border-radius: 8px;
     position: relative;
+    font-size: 1.1rem;
+}
+
+.login-btn, .contact-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: #ffffff;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover, .contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
 .navbar a::after {
@@ -99,34 +174,62 @@ header {
     border-radius: 15px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    margin: 0 auto;
 }
 
 .sections {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 600px;
+    width: 45%;
+    min-width: 400px;
 }
 
 .section {
     background: rgba(40, 40, 40, 0.6);
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
     transition: transform 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
 }
 
-.section:hover {
-    transform: translateY(-5px);
-    border-color: #ff6b6b;
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.section p {
+    font-size: 1.1rem;
+    margin: 15px 0 25px 0;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.section .btn {
+    margin-top: auto;
+    min-width: 150px;
+    text-align: center;
 }
 
 #group-img1, #group-img2 {
-    width: 400px;
+    width: 45%;
+    min-width: 400px;
     height: auto;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
     transition: transform 0.3s ease;
+    object-fit: cover;
 }
 
 #group-img1:hover, #group-img2:hover {
@@ -173,4 +276,13 @@ footer {
     text-align: center;
     padding: 20px;
     backdrop-filter: blur(10px);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
