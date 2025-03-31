@@ -36,7 +36,6 @@ const Marketplace = () => {
         setLoading(false);
         
         // Fallback to mock data if API fails
-        // In the useEffect where you're setting mock data
         const mockItems = [
           {
             _id: '1',
@@ -46,11 +45,11 @@ const Marketplace = () => {
             category: 'Books',
             condition: 'Used - Good',
             contactInfo: 'john.doe@example.com',
-            imageUrl: '/assets/book.jpg', // Update with actual image path
+            imageUrl: 'https://via.placeholder.com/150',
             postedDate: '2023-04-15',
             seller: 'John Doe'
           },
-          // ... other mock items with updated image paths
+          // ... other mock items
         ];
         
         setItems(mockItems);
@@ -119,61 +118,166 @@ const Marketplace = () => {
   return (
     <>
       <Navbar />
-      <main>
-        <div className="marketplace-container">
-          <div className="marketplace-header">
-            <h1 className="marketplace-title">Campus Marketplace</h1>
-            <button 
-              className="btn" 
-              onClick={() => setShowAddForm(!showAddForm)}
-            >
-              {showAddForm ? 'Cancel' : 'Sell an Item'}
-            </button>
-          </div>
-          
-          {successMessage && (
-            <div className="success-message">{successMessage}</div>
-          )}
-          
-          {showAddForm && (
-            <div className="marketplace-form">
-              <h3>List a New Item</h3>
-              {/* Your form fields here */}
-            </div>
-          )}
-          
-          {loading ? (
-            <p>Loading marketplace items...</p>
-          ) : error ? (
-            <p className="error-message">{error}</p>
-          ) : (
-            <div className="marketplace-grid">
-              {items.map(item => (
-                <div className="marketplace-item" key={item._id}>
-                  <img 
-                    src={item.imageUrl} 
-                    alt={item.title} 
-                    className="marketplace-item-image"
+      <main className="marketplace-container">
+        <div className="marketplace-header">
+          <h1>Campus Marketplace</h1>
+          <p>Buy and sell items with fellow students on campus</p>
+          <button className="btn add-item-btn" onClick={toggleAddForm}>
+            {showAddForm ? 'Cancel' : '+ Sell an Item'}
+          </button>
+        </div>
+
+        {error && <div className="error-message">{error}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
+
+        {showAddForm && (
+          <div className="add-item-form-container">
+            <h2>List an Item for Sale</h2>
+            <form className="add-item-form" onSubmit={onSubmit}>
+              <div className="form-group">
+                <label>Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={title}
+                  onChange={onChange}
+                  placeholder="What are you selling?"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Description</label>
+                <textarea
+                  name="description"
+                  value={description}
+                  onChange={onChange}
+                  placeholder="Describe your item (condition, features, etc.)"
+                  required
+                ></textarea>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Price (₹)</label>
+                  <input
+                    type="text"
+                    name="price"
+                    value={price}
+                    onChange={onChange}
+                    placeholder="Price in Rupees"
+                    required
                   />
-                  <div className="marketplace-item-content">
-                    <h3 className="marketplace-item-title">{item.title}</h3>
-                    <div className="marketplace-item-price">{item.price}</div>
-                    <p className="marketplace-item-description">
-                      {item.description.substring(0, 100)}
-                      {item.description.length > 100 ? '...' : ''}
-                    </p>
-                    <div className="marketplace-item-meta">
-                      <div className="marketplace-item-seller">
-                        <span>{item.seller}</span>
-                      </div>
-                      <div className="marketplace-item-date">
-                        {new Date(item.postedDate).toLocaleDateString()}
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              ))}
-            </div>
+                <div className="form-group">
+                  <label>Category</label>
+                  <select
+                    name="category"
+                    value={category}
+                    onChange={onChange}
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    <option value="Books">Books</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Sports">Sports Equipment</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Condition</label>
+                  <select
+                    name="condition"
+                    value={condition}
+                    onChange={onChange}
+                    required
+                  >
+                    <option value="New">New</option>
+                    <option value="Used - Like New">Used - Like New</option>
+                    <option value="Used - Good">Used - Good</option>
+                    <option value="Used - Fair">Used - Fair</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Contact Information</label>
+                  <input
+                    type="text"
+                    name="contactInfo"
+                    value={contactInfo}
+                    onChange={onChange}
+                    placeholder="Email or Phone Number"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Upload Image</label>
+                <input
+                  type="file"
+                  onChange={onImageChange}
+                  accept="image/*"
+                />
+              </div>
+              <button type="submit" className="btn submit-btn">List Item</button>
+            </form>
+          </div>
+        )}
+
+        <div className="marketplace-filters">
+          <div className="search-bar">
+            <input type="text" placeholder="Search items..." />
+            <button className="search-btn">Search</button>
+          </div>
+          <div className="filter-options">
+            <select defaultValue="">
+              <option value="">All Categories</option>
+              <option value="Books">Books</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Sports">Sports Equipment</option>
+              <option value="Other">Other</option>
+            </select>
+            <select defaultValue="newest">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="price_low">Price: Low to High</option>
+              <option value="price_high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="marketplace-items">
+          {loading ? (
+            <p className="loading-text">Loading items...</p>
+          ) : items.length > 0 ? (
+            items.map(item => (
+              <div className="item-card" key={item._id || item.id}>
+                <div className="item-image">
+                  <img src={item.imageUrl} alt={item.title} />
+                </div>
+                <div className="item-details">
+                  <h3>{item.title}</h3>
+                  <p className="item-price">{item.price}</p>
+                  <p className="item-description">{item.description}</p>
+                  <div className="item-meta">
+                    <span className="item-category">{item.category}</span>
+                    <span className="item-condition">{item.condition}</span>
+                  </div>
+                  <div className="item-seller">
+                    <p>Seller: {item.seller}</p>
+                    <p>Posted: {formatDate(item.postedDate)}</p>
+                  </div>
+                  <button className="btn contact-btn" onClick={() => window.location.href = `mailto:${item.contactInfo}`}>
+                    Contact Seller
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="no-items">No items found. Be the first to list something!</p>
           )}
         </div>
       </main>
