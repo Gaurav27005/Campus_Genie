@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials - Campus Genie</title>
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="Genie"><img src="/Assets/favicon.ico" alt="Genie"></a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <nav class="navbar">
+            <div class="nav-left">
+                <!-- Login button removed, will be replaced by JS for user avatar -->
+            </div>
+            <div class="nav-right">
+                <a href="contact.html" class="contact-btn">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="study-materials">
+        <h1>Study Materials</h1>
+        
+        <div class="semester-tabs">
+            <button class="tab-btn active" data-sem="sem3">Semester 3</button>
+            <button class="tab-btn" data-sem="sem4">Semester 4</button>
+        </div>
+
+        <div class="semester-content">
+            <div id="sem3" class="sem-panel active">
+                <h2>Semester 3</h2>
+                <div class="materials-grid">
+                    <div class="subjects-section">
+                        <h3>Subjects</h3>
+                        <div class="subject-cards">
+                            <div class="card">
+                                <h4>Object Oriented Programming</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Data Structure and Algorithms</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Discrete Mathematics</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Logic Design and Computer Organisation</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Basic Computer Network</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="practicals-section">
+                        <h3>Lab Practicals</h3>
+                        <div class="practical-cards">
+                            <div class="card">
+                                <h4>OOP Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>DSA Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>LDCO Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sem4" class="sem-panel">
+                <h2>Semester 4</h2>
+                <div class="materials-grid">
+                    <div class="subjects-section">
+                        <h3>Subjects</h3>
+                        <div class="subject-cards">
+                            <div class="card">
+                                <h4>Database Management Systems</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Software Engineering</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Processor Architecture</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Mathematics 3</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>Computer Graphics</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="practicals-section">
+                        <h3>Lab Practicals</h3>
+                        <div class="practical-cards">
+                            <div class="card">
+                                <h4>Computer Graphics Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>PSDL Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                            <div class="card">
+                                <h4>DBMS Lab</h4>
+                                <a href="#" class="btn">View Materials</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <script src="sm.js"></script>
+
+    <!-- Add this script at the end of the body before closing </body> tag -->
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token && user) {
+                // Get user's first initial
+                const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+                
+                // Replace login button with user avatar
+                const navLeft = document.querySelector('.nav-left');
+                
+                // Create user avatar element
+                const userAvatar = document.createElement('div');
+                userAvatar.className = 'user-avatar';
+                userAvatar.textContent = userInitial;
+                navLeft.appendChild(userAvatar);
+                
+                // Create dropdown menu
+                const dropdownMenu = document.createElement('div');
+                dropdownMenu.className = 'dropdown-menu';
+                
+                // Add logout option
+                const logoutOption = document.createElement('a');
+                logoutOption.href = '#';
+                logoutOption.className = 'dropdown-item';
+                logoutOption.textContent = 'Logout';
+                logoutOption.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                });
+                
+                dropdownMenu.appendChild(logoutOption);
+                navLeft.appendChild(dropdownMenu);
+                
+                // Toggle dropdown on avatar click
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            } else {
+                // User is not logged in, add login button
+                const navLeft = document.querySelector('.nav-left');
+                const loginBtn = document.createElement('a');
+                loginBtn.href = 'login.html';
+                loginBtn.className = 'login-btn';
+                loginBtn.textContent = 'Login';
+                navLeft.appendChild(loginBtn);
+            }
+        });
+    </script>
+</body>
+</html>

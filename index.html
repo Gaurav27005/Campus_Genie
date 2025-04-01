@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Genie - Simplifying Student Life</title>
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="Genie"><img src="/Assets/favicon.ico" alt="Genie"></a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <!-- Update the login button in the navbar -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="login.html" class="login-btn" id="auth-button">Login</a>
+            </div>
+            <div class="nav-right">
+                <a href="contact.html" class="contact-btn">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section for Campus Map and Study Materials -->
+    <section class="group">
+        <div class="group-content">
+            <div class="sections">
+                <section id="map" class="section">
+                    <h2>Campus Map 🗺️</h2>
+                    <p>Explore your college with our interactive map!</p>
+                    <a class="btn" href="map.html">View Map</a>
+                </section>
+
+                <section id="materials" class="section">
+                    <h2>Study Materials 📚</h2>
+                        <p>Access and upload notes, guides, and other study resources.</p>
+                    <a class="btn" href="sm.html">View Materials</a>
+                </section>
+            </div>
+            <img src="/Assets/img1.png" alt="Unified Image for Map and Materials" id="group-img1">
+            <!-- Placeholder -->
+        </div>
+    </section>
+
+    <!-- Section for Lost and Found, PG Finder, and Marketplace -->
+    <section class="group">
+        <div class="group-content">
+            <img src="/Assets/img2.png" alt="Unified Image for Lost and Found, PG Finder, and Marketplace" id="group-img2">
+            <div class="sections">
+                <section id="lostandfound" class="section">
+                    <h2>Lost and Found 🔍</h2>
+                    <p>Report or find lost items on campus with ease.</p>
+                    <a class="btn" href="lostandfound.html">Explore Lost and Found</a>
+                </section>
+
+                <section id="pgfinder" class="section">
+                    <h2>PG Finder 🏠</h2>
+                    <p>Find the perfect accommodation near your campus.</p>
+                    <a class="btn" href="pgfinder.html">Find PG</a>
+                </section>
+
+                <section id="marketplace" class="section">
+                    <h2>Campus Marketplace 🛍️</h2>
+                    <p>Buy and sell items with fellow students on campus.</p>
+                    <a class="btn" href="market.html">Visit Marketplace</a>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Add this script at the end of the body -->
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButton = document.getElementById('auth-button');
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token && user) {
+                // Get user's first initial
+                const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+                
+                // Replace login button with user avatar
+                const navLeft = document.querySelector('.nav-left');
+                navLeft.innerHTML = ''; // Clear the login button
+                
+                // Create user avatar element
+                const userAvatar = document.createElement('div');
+                userAvatar.className = 'user-avatar';
+                userAvatar.textContent = userInitial;
+                navLeft.appendChild(userAvatar);
+                
+                // Create dropdown menu
+                const dropdownMenu = document.createElement('div');
+                dropdownMenu.className = 'dropdown-menu';
+                
+                // Add logout option
+                const logoutOption = document.createElement('a');
+                logoutOption.href = '#';
+                logoutOption.className = 'dropdown-item';
+                logoutOption.textContent = 'Logout';
+                logoutOption.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                });
+                
+                dropdownMenu.appendChild(logoutOption);
+                navLeft.appendChild(dropdownMenu);
+                
+                // Toggle dropdown on avatar click
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+        });
+        // In your existing script, add this line after creating the dropdown menu
+        dropdownMenu.style.right = 'auto';
+        dropdownMenu.style.left = '0';
+    </script>
+</body>
+
+</html>

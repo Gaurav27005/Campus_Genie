@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Marketplace</title>
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="market.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="Genie"><img src="/Assets/favicon.ico" alt="Genie"></a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <nav class="navbar">
+            <div class="nav-left">
+                <!-- Login button removed, will be replaced by JS for user avatar -->
+            </div>
+            <div class="nav-right">
+                <a href="contact.html" class="contact-btn">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="marketplace">
+        <div class="market-header">
+            <h1>Campus Marketplace</h1>
+            <button class="post-ad-btn">+ Post New Ad</button>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" placeholder="Search items...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+
+        <div class="marketplace-content">
+            <aside class="filters-sidebar">
+                <div class="filter-section">
+                    <h3>Categories</h3>
+                    <div class="category-list">
+                        <button class="category-btn active" data-category="all">🏠 All Categories</button>
+                        <button class="category-btn" data-category="buy-sell">🛍️ Buy & Sell</button>
+                        <button class="category-btn" data-category="rental">🏠 Rental Services</button>
+                        <button class="category-btn" data-category="jobs">💼 Jobs & Internships</button>
+                        <button class="category-btn" data-category="tickets">🎫 Event Tickets</button>
+                        <button class="category-btn" data-category="ride-share">🚗 Ride Sharing</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Price Range</h3>
+                    <div class="price-range">
+                        <input type="number" placeholder="Min" min="0">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" min="0">
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Condition</h3>
+                    <select>
+                        <option value="all">All</option>
+                        <option value="new">New</option>
+                        <option value="used">Used</option>
+                    </select>
+                </div>
+            </aside>
+
+            <main class="listings-grid">
+                <!-- Buy & Sell Sample -->
+                <div class="listing-card" data-category="buy-sell">
+                    <div class="listing-image">
+                        <img src="/Assets/textbook.jpeg" alt="Engineering Textbook">
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                    <div class="listing-details">
+                        <h3>Engineering Mathematics Textbook</h3>
+                        <p class="price">₹500</p>
+                        <p class="description">Like new condition, includes practice problems</p>
+                        <div class="seller-info">
+                            <span>Posted by Rahul S.</span>
+                            <span>2 days ago</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="contact-btn">Contact Seller</button>
+                            <button class="report-btn">⚠️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rental Services Sample -->
+                <div class="listing-card" data-category="rental">
+                    <div class="listing-image">
+                        <img src="/Assets/apartment.jpeg" alt="Student Apartment">
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                    <div class="listing-details">
+                        <h3>Student Apartment Near Campus</h3>
+                        <p class="price">₹8,000/month</p>
+                        <p class="description">Furnished 1BHK, 5 min walk to college</p>
+                        <div class="seller-info">
+                            <span>Posted by Housing Ltd.</span>
+                            <span>1 day ago</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="contact-btn">Contact Owner</button>
+                            <button class="report-btn">⚠️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jobs Sample -->
+                <div class="listing-card" data-category="jobs">
+                    <div class="listing-image">
+                        <img src="/Assets/tutor.jpeg" alt="Tutoring Job">
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                    <div class="listing-details">
+                        <h3>Math Tutor Needed</h3>
+                        <p class="price">₹300/hour</p>
+                        <p class="description">Looking for CS student to teach Python</p>
+                        <div class="seller-info">
+                            <span>Posted by Anjali M.</span>
+                            <span>5 hours ago</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="contact-btn">Apply Now</button>
+                            <button class="report-btn">⚠️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Tickets Sample -->
+                <div class="listing-card" data-category="tickets">
+                    <div class="listing-image">
+                        <img src="/Assets/concert.jpeg" alt="Concert Ticket">
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                    <div class="listing-details">
+                        <h3>College Fest Concert Ticket</h3>
+                        <p class="price">₹800</p>
+                        <p class="description">Front row pass for upcoming fest</p>
+                        <div class="seller-info">
+                            <span>Posted by Arjun P.</span>
+                            <span>12 hours ago</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="contact-btn">Buy Ticket</button>
+                            <button class="report-btn">⚠️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ride Sharing Sample -->
+                <div class="listing-card" data-category="ride-share">
+                    <div class="listing-image">
+                        <img src="/Assets/carpool.jpeg" alt="Carpool">
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                    <div class="listing-details">
+                        <h3>Daily Carpool to Campus</h3>
+                        <p class="price">₹100/day</p>
+                        <p class="description">Leaving from City Center at 8 AM</p>
+                        <div class="seller-info">
+                            <span>Posted by Vikram K.</span>
+                            <span>1 hour ago</span>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="contact-btn">Join Carpool</button>
+                            <button class="report-btn">⚠️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Buy & Sell Listings -->
+                            <div class="listing-card" data-category="buy-sell">
+                                <div class="listing-image">
+                                    <img src="/Assets/laptop.jpeg" alt="Gaming Laptop">
+                                    <button class="favorite-btn">❤️</button>
+                                </div>
+                                <div class="listing-details">
+                                    <h3>Gaming Laptop - 1 Year Old</h3>
+                                    <p class="price">₹45,000</p>
+                                    <p class="description">MSI Gaming Laptop, excellent condition</p>
+                                    <div class="seller-info">
+                                        <span>Posted by Pratap Patil</span>
+                                        <span>1 day ago</span>
+                                    </div>
+                                    <div class="listing-actions">
+                                        <button class="contact-btn">Contact Seller</button>
+                                        <button class="report-btn">⚠️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Rental Listings -->
+                            <div class="listing-card" data-category="rental">
+                                <div class="listing-image">
+                                    <img src="/Assets/pg.jpeg" alt="PG Accommodation">
+                                    <button class="favorite-btn">❤️</button>
+                                </div>
+                                <div class="listing-details">
+                                    <h3>PG near DY Patil College</h3>
+                                    <p class="price">₹6,000/month</p>
+                                    <p class="description">Fully furnished PG with food, WiFi included</p>
+                                    <div class="seller-info">
+                                        <span>Posted by Madhav Deshmukh</span>
+                                        <span>3 days ago</span>
+                                    </div>
+                                    <div class="listing-actions">
+                                        <button class="contact-btn">Contact Owner</button>
+                                        <button class="report-btn">⚠️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Jobs Listings -->
+                            <div class="listing-card" data-category="jobs">
+                                <div class="listing-image">
+                                    <img src="/Assets/internship.jpeg" alt="Web Development Internship">
+                                    <button class="favorite-btn">❤️</button>
+                                </div>
+                                <div class="listing-details">
+                                    <h3>Web Development Intern Needed</h3>
+                                    <p class="price">₹10,000/month</p>
+                                    <p class="description">3 months internship, work from home</p>
+                                    <div class="seller-info">
+                                        <span>Posted by Ganesh Joshi</span>
+                                        <span>Just now</span>
+                                    </div>
+                                    <div class="listing-actions">
+                                        <button class="contact-btn">Apply Now</button>
+                                        <button class="report-btn">⚠️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Event Tickets -->
+                            <div class="listing-card" data-category="tickets">
+                                <div class="listing-image">
+                                    <img src="/Assets/cultral.jpeg" alt="Cultural Event">
+                                    <button class="favorite-btn">❤️</button>
+                                </div>
+                                <div class="listing-details">
+                                    <h3>Cultural Night Passes</h3>
+                                    <p class="price">₹350</p>
+                                    <p class="description">2 passes for upcoming cultural night</p>
+                                    <div class="seller-info">
+                                        <span>Posted by Aditya Kulkarni</span>
+                                        <span>5 hours ago</span>
+                                    </div>
+                                    <div class="listing-actions">
+                                        <button class="contact-btn">Buy Passes</button>
+                                        <button class="report-btn">⚠️</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Ride Sharing -->
+                            <div class="listing-card" data-category="ride-share">
+                                <div class="listing-image">
+                                    <img src="/Assets/car-share.jpeg" alt="Car Pool">
+                                    <button class="favorite-btn">❤️</button>
+                                </div>
+                                <div class="listing-details">
+                                    <h3>Daily Ride Share - Wakad to Campus</h3>
+                                    <p class="price">₹80/day</p>
+                                    <p class="description">Leaving from Wakad at 8:30 AM</p>
+                                    <div class="seller-info">
+                                        <span>Posted by Suresh Mhatre</span>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                    <div class="listing-actions">
+                                        <button class="contact-btn">Join Ride</button>
+                                        <button class="report-btn">⚠️</button>
+                                    </div>
+                                </div>
+                            </div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Add this script at the end of the body before closing </body> tag -->
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token && user) {
+                // Get user's first initial
+                const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+                
+                // Replace login button with user avatar
+                const navLeft = document.querySelector('.nav-left');
+                
+                // Create user avatar element
+                const userAvatar = document.createElement('div');
+                userAvatar.className = 'user-avatar';
+                userAvatar.textContent = userInitial;
+                navLeft.appendChild(userAvatar);
+                
+                // Create dropdown menu
+                const dropdownMenu = document.createElement('div');
+                dropdownMenu.className = 'dropdown-menu';
+                
+                // Add logout option
+                const logoutOption = document.createElement('a');
+                logoutOption.href = '#';
+                logoutOption.className = 'dropdown-item';
+                logoutOption.textContent = 'Logout';
+                logoutOption.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                });
+                
+                dropdownMenu.appendChild(logoutOption);
+                navLeft.appendChild(dropdownMenu);
+                
+                // Toggle dropdown on avatar click
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            } else {
+                // User is not logged in, add login button
+                const navLeft = document.querySelector('.nav-left');
+                const loginBtn = document.createElement('a');
+                loginBtn.href = 'login.html';
+                loginBtn.className = 'login-btn';
+                loginBtn.textContent = 'Login';
+                navLeft.appendChild(loginBtn);
+            }
+        });
+    </script>
+    <script src="market.js"></script>
+</body>
+</html>

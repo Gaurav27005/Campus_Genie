@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found - Post Item</title>
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="post-item.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="Genie"><img src="/Assets/favicon.ico" alt="Genie"></a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+            <div class="nav-right">
+                <a href="contact.html" class="contact-btn">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+    <div class="back-button-container">
+        <a href="javascript:history.back()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+    </div>
+
+    <main>
+        <h2 class="section-title">Report Item</h2>
+        <!-- Remove the button section and add select in the form -->
+        <form class="post-form" id="itemForm">
+            <div class="form-group">
+                <select id="itemType" required>
+                    <option value="">Select Report Type</option>
+                    <option value="lost">Lost Item</option>
+                    <option value="found">Found Item</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="phone" placeholder="Your Phone Number" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="itemTitle" placeholder="Item Name/Title" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="location" placeholder="Location Lost/Found" required>
+            </div>
+            <div class="form-group">
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <textarea id="description" placeholder="Detailed Description of the Item" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="itemImage">Upload Image</label>
+                <input type="file" id="itemImage" accept="image/*" required>
+            </div>
+            <button type="submit" class="submit-button">Submit Report</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Add before closing body tag -->
+        <div class="notification-popup" id="notificationPopup">
+            <div class="popup-content">
+                <div class="popup-icon">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <i class="fas fa-times-circle error-icon"></i>
+                </div>
+                <h3 id="popupTitle"></h3>
+                <p id="popupMessage"></p>
+                <button onclick="closeNotification()">OK</button>
+            </div>
+        </div>
+</body>
+</html>

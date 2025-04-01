@@ -1,0 +1,427 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #ffffff;
+}
+
+h2 {
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Link and Button Transitions */
+a, .btn {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+a:not(.btn):after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+}
+
+a:not(.btn):hover:after {
+    width: 100%;
+}
+
+.btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn::before {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+.Genie {
+    transition: transform 0.4s ease-in-out;
+}
+
+.Genie:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Header and Navbar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    flex-wrap: wrap;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+}
+
+.Genie img {
+    width: 60px;
+    height: auto;
+}
+
+.Genie:hover {
+    transform: scale(1.1);
+}
+
+.brand {
+    font-size: 3.5rem;
+    font-weight: bold;
+    background: linear-gradient(270deg, #ff6b6b, #ff9f43, #ff6b6b, #ff9f43);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient 3s linear infinite;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    min-width: 300px;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar a {
+    color: #ffffff;
+    font-weight: 500;
+    padding: 12px 25px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.login-btn, .contact-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: #ffffff;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover, .contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* Section Group Styles */
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0;
+    gap: 20px;
+}
+
+.group-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    background: rgba(30, 30, 30, 0.5);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 45%;
+    min-width: 400px;
+}
+
+.section {
+    background: rgba(40, 40, 40, 0.6);
+    padding: 30px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.section p {
+    font-size: 1.1rem;
+    margin: 15px 0 25px 0;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.section .btn {
+    margin-top: auto;
+    min-width: 150px;
+    text-align: center;
+}
+
+#group-img1, #group-img2 {
+    width: 45%;
+    min-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+    transition: transform 0.3s ease;
+    object-fit: cover;
+}
+
+#group-img1:hover, #group-img2:hover {
+    transform: scale(1.02);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: #ffffff;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2));
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Footer Styles */
+footer {
+    background-color: rgba(20, 20, 20, 0.95);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
+}
+
+
+/* Profile and Logout Button Styles */
+/* Header and Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-width: 300px;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Swap the positions by adjusting the order */
+.nav-left {
+    order: 2;
+    position: relative;
+}
+
+.nav-right {
+    order: 1;
+}
+
+.contact-btn {
+    margin-left: 0;
+    margin-right: 60px; /* Increased from 20px to shift right by ~10mm */
+}
+
+/* Logout Button Styles */
+.logout-btn {
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.contact-btn {
+    margin-left: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 30px;
+    }
+    
+    .logout-btn {
+        margin-right: 0;
+    }
+    
+    .contact-btn {
+        margin-left: 0;
+    }
+}
+
+
+/* User Avatar and Dropdown Menu */
+.user-avatar {
+    width: 52px; /* Increased from 46px for larger radius */
+    height: 52px; /* Increased from 46px for larger radius */
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+    position: relative;
+}
+
+.user-avatar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: rgba(40, 40, 40, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 107, 107, 0.2);
+}
+
+.nav-left {
+    position: relative;
+}

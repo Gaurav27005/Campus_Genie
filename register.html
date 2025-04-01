@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Campus Genie</title>
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-header">
+      <h1>Create an Account</h1>
+      <p>Join Campus Genie to access all features</p>
+    </div>
+    
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="6">
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6">
+      </div>
+      
+      <div id="error-message" class="error-text"></div>
+      
+      <button type="submit">Register</button>
+    </form>
+    
+    <div class="auth-footer">
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+  </div>
+
+  <script src="/register.js"></script>
+</body>
+</html>

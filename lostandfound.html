@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found</title>
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lostandfound.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="Genie">
+            <img src="/Assets/favicon.ico" alt="Genie">
+        </a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <nav class="navbar">
+            <div class="nav-left">
+                <!-- Login button removed, will be replaced by JS for user avatar -->
+            </div>
+            <div class="nav-right">
+                <a href="contact.html" class="contact-btn">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="section-title">Lost and Found</h1>
+
+        <section class="action-cards">
+            <div class="card find-card">
+                <div class="card-content">
+                    <h2>Lost and Found Corner 🔍</h2>
+                    <p>Lost something? Browse through our database of found items.</p>
+                    <a href="find-items.html" class="btn">View Items</a>
+                </div>
+            </div>
+            
+            <div class="card post-card">
+                <div class="card-content">
+                    <h2>Post Items 📝</h2>
+                    <p>Found something? Help your fellow students by reporting it here.</p>
+                    <a href="post-item.html" class="btn">Report Item</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+    <!-- Add this script at the end of the body before closing </body> tag -->
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token && user) {
+                // Get user's first initial
+                const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+                
+                // Replace login button with user avatar
+                const navLeft = document.querySelector('.nav-left');
+                
+                // Create user avatar element
+                const userAvatar = document.createElement('div');
+                userAvatar.className = 'user-avatar';
+                userAvatar.textContent = userInitial;
+                navLeft.appendChild(userAvatar);
+                
+                // Create dropdown menu
+                const dropdownMenu = document.createElement('div');
+                dropdownMenu.className = 'dropdown-menu';
+                
+                // Add logout option
+                const logoutOption = document.createElement('a');
+                logoutOption.href = '#';
+                logoutOption.className = 'dropdown-item';
+                logoutOption.textContent = 'Logout';
+                logoutOption.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                });
+                
+                dropdownMenu.appendChild(logoutOption);
+                navLeft.appendChild(dropdownMenu);
+                
+                // Toggle dropdown on avatar click
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            } else {
+                // User is not logged in, add login button
+                const navLeft = document.querySelector('.nav-left');
+                const loginBtn = document.createElement('a');
+                loginBtn.href = 'login.html';
+                loginBtn.className = 'login-btn';
+                loginBtn.textContent = 'Login';
+                navLeft.appendChild(loginBtn);
+            }
+        });
+    </script>
+</body>
+</html>

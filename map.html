@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Map - Campus Genie</title>
+    <link rel="icon" type="image/png" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="viewmap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="Genie"><img src="../assets/noto_man-genie.png" alt="Genie"></a>
+            <a href="index.html" class="brand">Campus Genie - MAP</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="floor-section">
+            <img src="../assets/image 6.png" alt="Map Illustration" class="floor-illustration">
+            <div class="floor-buttons">
+                <button id="ground-floor" class="btn" onclick="showMap('ground')">Ground Floor</button>
+                <button id="first-floor" class="btn" onclick="showMap('first')">First Floor</button>
+                <button id="second-floor" class="btn" onclick="showMap('second')">Second Floor</button>
+            </div>
+        </div>
+
+        <!-- Campus Map Display Below -->
+        <div class="map-container">
+            <img id="map-image" src="../assets/DYPCOE.jpg" alt="Selected Campus Map" class="map-img">
+        </div>
+
+        <!-- Google Maps Location -->
+        <div class="google-map">
+            <h3>Locate Us on Google Maps</h3>
+            <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1890.213487479512!2d73.75617343379163!3d18.644826388116837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9f1ca8dab03%3A0x6237cfbd36f9acf9!2sD.Y.%20Patil%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1742577462439!5m2!1sen!2sin&t=k"
+          width="100%"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          width=100%
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showMap(floor) {
+            const mapImage = document.getElementById('map-image');
+            if (floor === 'ground') {
+                mapImage.src = 'ground-floor-map.jpg'; // Replace with your Ground Floor Map image
+            } else if (floor === 'first') {
+                mapImage.src = 'first-floor-map.jpg'; // Replace with your First Floor Map image
+            } else if (floor === 'second') {
+                mapImage.src = 'second-floor-map.jpg'; // Replace with your Second Floor Map image
+            }
+        }
+    </script>
+</body>
+</html>
