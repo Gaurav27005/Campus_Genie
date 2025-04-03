@@ -8,6 +8,50 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="sm.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for subject buttons */
+        .subject-tabs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .subject-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .subject-btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .subject-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .subject-btn.active {
+            background: linear-gradient(45deg, #ff9f43, #ff6b6b);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 107, 107, 0.5);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,108 +70,29 @@
     <main class="study-materials">
         <h1>Study Materials</h1>
         
-        <div class="semester-tabs">
-            <button class="tab-btn active" data-sem="sem3">Semester 3</button>
-            <button class="tab-btn" data-sem="sem4">Semester 4</button>
+        <!-- Replace with two rows of subject buttons -->
+        <div class="subject-tabs">
+            <div class="subject-row">
+                <button class="subject-btn active" data-subject="dm">DM</button>
+                <button class="subject-btn" data-subject="ldco">LDCO</button>
+                <button class="subject-btn" data-subject="bcn">BCN</button>
+                <button class="subject-btn" data-subject="oop">OOP</button>
+                <button class="subject-btn" data-subject="dsa">DSA</button>
+            </div>
+            <div class="subject-row">
+                <button class="subject-btn" data-subject="dbms">DBMS</button>
+                <button class="subject-btn" data-subject="m3">M3</button>
+                <button class="subject-btn" data-subject="pa">PA</button>
+                <button class="subject-btn" data-subject="se">SE</button>
+                <button class="subject-btn" data-subject="cg">CG</button>
+            </div>
         </div>
 
-        <div class="semester-content">
-            <div id="sem3" class="sem-panel active">
-                <h2>Semester 3</h2>
-                <div class="materials-grid">
-                    <div class="subjects-section">
-                        <h3>Subjects</h3>
-                        <div class="subject-cards">
-                            <div class="card">
-                                <h4>Object Oriented Programming</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Data Structure and Algorithms</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Discrete Mathematics</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Logic Design and Computer Organisation</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Basic Computer Network</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="practicals-section">
-                        <h3>Lab Practicals</h3>
-                        <div class="practical-cards">
-                            <div class="card">
-                                <h4>OOP Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>DSA Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>LDCO Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="sem4" class="sem-panel">
-                <h2>Semester 4</h2>
-                <div class="materials-grid">
-                    <div class="subjects-section">
-                        <h3>Subjects</h3>
-                        <div class="subject-cards">
-                            <div class="card">
-                                <h4>Database Management Systems</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Software Engineering</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Processor Architecture</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Mathematics 3</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>Computer Graphics</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="practicals-section">
-                        <h3>Lab Practicals</h3>
-                        <div class="practical-cards">
-                            <div class="card">
-                                <h4>Computer Graphics Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>PSDL Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                            <div class="card">
-                                <h4>DBMS Lab</h4>
-                                <a href="#" class="btn">View Materials</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Sliding window for options -->
+        <div class="options-slider" id="options-slider">
+            <div class="options-container">
+                <button class="option-btn" data-option="notes">Notes</button>
+                <button class="option-btn" data-option="pyq">PYQ</button>
             </div>
         </div>
     </main>
@@ -136,9 +101,6 @@
         <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
     </footer>
 
-    <script src="sm.js"></script>
-
-    <!-- Add this script at the end of the body before closing </body> tag -->
     <script>
         // Check if user is logged in
         document.addEventListener('DOMContentLoaded', function() {
@@ -161,35 +123,26 @@
                 // Create dropdown menu
                 const dropdownMenu = document.createElement('div');
                 dropdownMenu.className = 'dropdown-menu';
+                dropdownMenu.innerHTML = `
+                    <a href="profile.html">Profile</a>
+                    <a href="#" id="logoutBtn">Logout</a>
+                `;
+                userAvatar.appendChild(dropdownMenu);
                 
-                // Add logout option
-                const logoutOption = document.createElement('a');
-                logoutOption.href = '#';
-                logoutOption.className = 'dropdown-item';
-                logoutOption.textContent = 'Logout';
-                logoutOption.addEventListener('click', function(e) {
+                // Toggle dropdown menu
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('active');
+                });
+                
+                // Logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', function(e) {
                     e.preventDefault();
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
-                    window.location.href = '/';
-                });
-                
-                dropdownMenu.appendChild(logoutOption);
-                navLeft.appendChild(dropdownMenu);
-                
-                // Toggle dropdown on avatar click
-                userAvatar.addEventListener('click', function() {
-                    dropdownMenu.classList.toggle('show');
-                });
-                
-                // Close dropdown when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                        dropdownMenu.classList.remove('show');
-                    }
+                    window.location.href = 'index.html';
                 });
             } else {
-                // User is not logged in, add login button
+                // Add login button if not logged in
                 const navLeft = document.querySelector('.nav-left');
                 const loginBtn = document.createElement('a');
                 loginBtn.href = 'login.html';
@@ -197,7 +150,107 @@
                 loginBtn.textContent = 'Login';
                 navLeft.appendChild(loginBtn);
             }
+            
+            // Initialize subject buttons
+            initializeSubjectButtons();
         });
+        
+        function initializeSubjectButtons() {
+            const subjectButtons = document.querySelectorAll('.subject-btn');
+            const optionsSlider = document.getElementById('options-slider');
+            
+            subjectButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const subject = button.getAttribute('data-subject');
+                    
+                    // Remove active class from all buttons
+                    subjectButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Show options slider with animation
+                    optionsSlider.style.display = 'block';
+                    optionsSlider.classList.add('slide-in');
+                    
+                    // Set current subject data attribute
+                    optionsSlider.setAttribute('data-current-subject', subject);
+                });
+            });
+            
+            // Initialize option buttons
+            const optionButtons = document.querySelectorAll('.option-btn');
+            optionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const option = button.getAttribute('data-option');
+                    const currentSubject = optionsSlider.getAttribute('data-current-subject');
+                    
+                    // Here you would handle the option selection
+                    console.log(`Selected ${option} for ${currentSubject}`);
+                    
+                    // Add active class to clicked option
+                    optionButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+            
+            // Remove automatic trigger of first button click
+            // subjectButtons[0].click();
+        }
     </script>
+    
+    <style>
+        /* Styles for the options slider */
+        .options-slider {
+            width: 80%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            border: 1px solid rgba(255, 159, 67, 0.2);
+            margin-top: 30px;
+            display: none;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .options-slider.slide-in {
+            transform: translateY(0);
+            opacity: 1;
+            display: block;
+        }
+        
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .option-btn {
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+        
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .option-btn.active {
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+    </style>
 </body>
 </html>
