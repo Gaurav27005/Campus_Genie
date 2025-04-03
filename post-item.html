@@ -15,10 +15,11 @@
         <a href="index.html" class="brand">Campus Genie</a>
         <nav class="navbar">
             <div class="nav-left">
-                <a href="login.html" class="login-btn">Login</a>
+                <!-- Login button removed, contact us button placed here instead -->
+                <a href="contact.html" class="contact-btn">Contact Us</a>
             </div>
             <div class="nav-right">
-                <a href="contact.html" class="contact-btn">Contact Us</a>
+                <!-- Contact us button removed from here -->
             </div>
         </nav>
     </header>
@@ -64,25 +65,12 @@
                 <label for="itemImage">Upload Image</label>
                 <input type="file" id="itemImage" accept="image/*" required>
             </div>
-            <button type="submit" class="submit-button">Submit Report</button>
+            <button type="submit" class="submit-btn">Submit Report</button>
         </form>
     </main>
 
     <footer>
         <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
     </footer>
-
-    <!-- Add before closing body tag -->
-        <div class="notification-popup" id="notificationPopup">
-            <div class="popup-content">
-                <div class="popup-icon">
-                    <i class="fas fa-check-circle success-icon"></i>
-                    <i class="fas fa-times-circle error-icon"></i>
-                </div>
-                <h3 id="popupTitle"></h3>
-                <p id="popupMessage"></p>
-                <button onclick="closeNotification()">OK</button>
-            </div>
-        </div>
 </body>
 </html>
