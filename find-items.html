@@ -34,57 +34,129 @@
         
         <!-- Removed the lost-found-box section -->
         
-        <div class="items-grid">
-            <div class="item-card">
-                <div class="img-container">
-                    <img src="/Assets/buds.jpeg" alt="OnePlus Buds">
-                </div>
-                <div class="content">
-                    <h3>Lost: OnePlus Buds</h3>
-                    <p>Lost in Library or Cafeteria. Black OnePlus Buds Pro with charging case. Has a small scratch on case. Lost on March 16, 2024. Reward offered.</p>
-                </div>
-            </div>
-            <div class="item-card">
-                <div class="img-container">
-                    <img src="/Assets/calci.jpeg" alt="Scientific Calculator">
-                </div>
-                <div class="content">
-                    <h3>Found: Scientific Calculator</h3>
-                    <p>Found in Room 302, Engineering Block. Casio FX-82MS calculator in good condition. Found on March 15, 2024.</p>
-                </div>
-            </div>
-            <div class="item-card">
-                <div class="img-container">
-                    <img src="/Assets/id.jpeg" alt="Student ID Card">
-                </div>
-                <div class="content">
-                    <h3>Found: NSS ID Card</h3>
-                    <p>Found near Canteen. NSS Volunteer Identity Card of D. Y. Patil College of Engineering. Name: Nihar Dinesh Patil. Please collect from Lost & Found office.</p>
-                </div>
-            </div>
-            <div class="item-card">
-                <div class="img-container">
-                    <img src="/Assets/laptop charger.jpeg" alt="Laptop Charger">
-                </div>
-                <div class="content">
-                    <h3>Lost: HP Laptop Charger</h3>
-                    <p>Lost in Library, 2nd floor study area. HP laptop charger with specifications as shown in image. Last seen on March 13, 2024. Contact: +91 98765XXXXX</p>
-                </div>
-            </div>
-            <div class="item-card">
-                <div class="img-container">
-                    <img src="/Assets/notebook.jpeg" alt="Notebook">
-                </div>
-                <div class="content">
-                    <h3>Found: Class Notes</h3>
-                    <p>Found in Room 205. Green Classmate notebook with tree design on cover. Contains academic notes. Please claim from CS department office.</p>
-                </div>
-            </div>
+        <div class="items-grid" id="items-container">
+            <!-- Items will be loaded dynamically from JSON -->
         </div>
     </main>
 
     <footer>
         <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const itemsContainer = document.getElementById('items-container');
+            
+            // Fetch items from MongoDB
+            fetch('/api/items')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(items => {
+                    // Clear any existing content
+                    itemsContainer.innerHTML = '';
+                    
+                    if (items.length === 0) {
+                        // No items found
+                        const noItemsMessage = document.createElement('div');
+                        noItemsMessage.className = 'no-items-message';
+                        noItemsMessage.innerHTML = `
+                            <h3>No Items Found</h3>
+                            <p>There are currently no lost or found items listed.</p>
+                            <p>Be the first to <a href="post-item.html">post an item</a>!</p>
+                        `;
+                        
+                        itemsContainer.appendChild(noItemsMessage);
+                    } else {
+                        // Loop through the items and create HTML for each
+                        items.forEach(item => {
+                            const itemCard = document.createElement('div');
+                            itemCard.className = 'item-card';
+                            
+                            // Create the HTML structure for each item
+                            itemCard.innerHTML = `
+                                <div class="img-container">
+                                    <img src="${item.image}" alt="${item.title}">
+                                </div>
+                                <div class="content">
+                                    <h3>${item.type === 'lost' ? 'Lost: ' : 'Found: '}${item.title}</h3>
+                                    <p>${item.description}</p>
+                                    <p class="item-details">
+                                        <span class="location">📍 ${item.location || 'Location not specified'}</span>
+                                        <span class="date">📅 ${formatDate(item.date)}</span>
+                                        ${item.contact ? `<span class="contact">📞 ${item.contact}</span>` : ''}
+                                    </p>
+                                </div>
+                            `;
+                            
+                            // Add the item card to the container
+                            itemsContainer.appendChild(itemCard);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching items:', error);
+                    
+                    // If MongoDB fetch fails, try to get items from localStorage
+                    const postedItems = JSON.parse(localStorage.getItem('postedItems') || '[]');
+                    
+                    // Clear any existing content
+                    itemsContainer.innerHTML = '';
+                    
+                    if (postedItems.length === 0) {
+                        // No items found in localStorage either
+                        const noItemsMessage = document.createElement('div');
+                        noItemsMessage.className = 'no-items-message';
+                        noItemsMessage.innerHTML = `
+                            <h3>No Items Found</h3>
+                            <p>There are currently no lost or found items listed.</p>
+                            <p>Be the first to <a href="post-item.html">post an item</a>!</p>
+                        `;
+                        
+                        itemsContainer.appendChild(noItemsMessage);
+                    } else {
+                        // Display items from localStorage
+                        postedItems.forEach(item => {
+                            const itemCard = document.createElement('div');
+                            itemCard.className = 'item-card';
+                            
+                            itemCard.innerHTML = `
+                                <div class="img-container">
+                                    <img src="${item.image}" alt="${item.title}">
+                                </div>
+                                <div class="content">
+                                    <h3>${item.type === 'lost' ? 'Lost: ' : 'Found: '}${item.title}</h3>
+                                    <p>${item.description}</p>
+                                    <p class="item-details">
+                                        <span class="location">📍 ${item.location || 'Location not specified'}</span>
+                                        <span class="date">📅 ${formatDate(item.date)}</span>
+                                        ${item.contact ? `<span class="contact">📞 ${item.contact}</span>` : ''}
+                                    </p>
+                                </div>
+                            `;
+                            
+                            itemsContainer.appendChild(itemCard);
+                        });
+                    }
+                });
+        });
+        
+        // Helper function to format dates
+        function formatDate(dateString) {
+            if (!dateString) return 'Date not specified';
+            
+            const date = new Date(dateString);
+            if (isNaN(date)) return dateString;
+            
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+    </script>
 </body>
 </html>

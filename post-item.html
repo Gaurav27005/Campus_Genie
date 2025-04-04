@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost and Found - Post Item</title>
+    <title>Post Lost or Found Item</title>
     <link rel="icon" type="image/png" href="/Assets/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="post-item.css">
@@ -15,7 +15,6 @@
         <a href="index.html" class="brand">Campus Genie</a>
         <nav class="navbar">
             <div class="nav-left">
-                <!-- Login button removed, contact us button placed here instead -->
                 <a href="contact.html" class="contact-btn">Contact Us</a>
             </div>
             <div class="nav-right">
@@ -30,47 +29,267 @@
     </div>
 
     <main>
-        <h2 class="section-title">Report Item</h2>
-        <!-- Remove the button section and add select in the form -->
-        <form class="post-form" id="itemForm">
-            <div class="form-group">
-                <select id="itemType" required>
-                    <option value="">Select Report Type</option>
-                    <option value="lost">Lost Item</option>
-                    <option value="found">Found Item</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="text" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" id="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" id="phone" placeholder="Your Phone Number" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="itemTitle" placeholder="Item Name/Title" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="location" placeholder="Location Lost/Found" required>
-            </div>
-            <div class="form-group">
-                <input type="date" id="date" required>
-            </div>
-            <div class="form-group">
-                <textarea id="description" placeholder="Detailed Description of the Item" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="itemImage">Upload Image</label>
-                <input type="file" id="itemImage" accept="image/*" required>
-            </div>
-            <button type="submit" class="submit-btn">Submit Report</button>
-        </form>
+        <h1 class="section-title">Post a Lost or Found Item</h1>
+        
+        <div class="form-container">
+            <form id="post-item-form">
+                <div class="form-group">
+                    <label for="item-type">Item Type</label>
+                    <select id="item-type" name="type" required>
+                        <option value="">Select Type</option>
+                        <option value="lost">Lost Item</option>
+                        <option value="found">Found Item</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-title">Item Name</label>
+                    <input type="text" id="item-title" name="title" placeholder="e.g., OnePlus Buds, Calculator" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-description">Description</label>
+                    <textarea id="item-description" name="description" placeholder="Provide details about the item..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-location">Location</label>
+                    <input type="text" id="item-location" name="location" placeholder="Where was it lost/found?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-date">Date</label>
+                    <input type="date" id="item-date" name="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-contact">Contact Information</label>
+                    <input type="text" id="item-contact" name="contact" placeholder="How can people reach you?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="item-image">Upload Image</label>
+                    <input type="file" id="item-image" name="image" accept="image/*">
+                    <p class="form-help">Upload an image of the item (max 5MB)</p>
+                    <div class="image-preview-container">
+                        <img id="image-preview" src="/Assets/placeholder.jpeg" alt="Image Preview">
+                    </div>
+                </div>
+                
+                <!-- Replace the sample images section with this -->
+                <div class="form-group">
+                    <label>Or select from sample images:</label>
+                    <div class="sample-images">
+                        <img src="/Assets/buds.jpeg" alt="Buds" class="sample-image" data-url="/Assets/buds.jpeg">
+                        <img src="/Assets/calci.jpeg" alt="Calculator" class="sample-image" data-url="/Assets/calci.jpeg">
+                        <img src="/Assets/id.jpeg" alt="ID Card" class="sample-image" data-url="/Assets/id.jpeg">
+                        <img src="/Assets/laptop charger.jpeg" alt="Laptop Charger" class="sample-image" data-url="/Assets/laptop charger.jpeg">
+                        <img src="/Assets/notebook.jpeg" alt="Notebook" class="sample-image" data-url="/Assets/notebook.jpeg">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Post Item</button>
+                    <button type="reset" class="reset-btn">Reset Form</button>
+                </div>
+            </form>
+        </div>
     </main>
 
     <footer>
         <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
     </footer>
+
+    <!-- Add these elements to your HTML if they don't exist -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="notification-popup">
+        <div class="popup-content">
+            <div class="popup-icon success-icon">✓</div>
+            <div class="popup-icon error-icon">✗</div>
+            <h3>Item Posted Successfully!</h3>
+            <button type="button" id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <!-- Update your JavaScript section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default date to today
+            const dateInput = document.getElementById('item-date');
+            if (dateInput) {
+                dateInput.valueAsDate = new Date();
+            }
+            
+            // Image preview functionality
+            const imageInput = document.getElementById('item-image');
+            const imagePreview = document.getElementById('image-preview');
+            let useFileUpload = false;
+            
+            if (imageInput && imagePreview) {
+                imageInput.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            imagePreview.src = e.target.result;
+                            useFileUpload = true;
+                            
+                            // Remove selected class from all sample images
+                            document.querySelectorAll('.sample-image').forEach(img => {
+                                img.classList.remove('selected');
+                            });
+                        }
+                        
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
+            
+            // Sample image selection
+            const sampleImages = document.querySelectorAll('.sample-image');
+            
+            sampleImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    if (imagePreview) {
+                        // Set preview to the selected sample image
+                        imagePreview.src = this.getAttribute('data-url');
+                        useFileUpload = false;
+                        
+                        // Clear file input if it exists
+                        if (imageInput) {
+                            imageInput.value = '';
+                        }
+                        
+                        // Remove selected class from all images
+                        sampleImages.forEach(i => i.classList.remove('selected'));
+                        // Add selected class to clicked image
+                        this.classList.add('selected');
+                    }
+                });
+            });
+            
+            // Form submission
+            const form = document.getElementById('post-item-form');
+            const loadingOverlay = document.querySelector('.loading-overlay');
+            const notificationPopup = document.querySelector('.notification-popup');
+            const successIcon = document.querySelector('.success-icon');
+            const errorIcon = document.querySelector('.error-icon');
+            const popupTitle = document.querySelector('.popup-content h3');
+            // Replace your form submission code with this
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading overlay if it exists
+                    if (loadingOverlay) {
+                        loadingOverlay.style.display = 'flex';
+                    }
+                    
+                    // Create FormData object
+                    const formData = new FormData(form);
+                    
+                    // If a sample image was selected instead of file upload
+                    if (!useFileUpload && imagePreview) {
+                        // Remove the file input data
+                        formData.delete('image');
+                        // Add the sample image URL
+                        formData.append('imageUrl', imagePreview.src);
+                    }
+                    
+                    // Log the form data for debugging
+                    console.log("Form data being sent:");
+                    for (let pair of formData.entries()) {
+                        console.log(pair[0] + ': ' + pair[1]);
+                    }
+                    
+                    // Send data to server
+                    fetch('/api/items/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log("Server response status:", response.status);
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`Server error: ${response.status} - ${text}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success - Item saved:', data);
+                        
+                        // Also save to localStorage as backup
+                        const itemData = {
+                            id: data._id || Date.now(),
+                            type: formData.get('type'),
+                            title: formData.get('title'),
+                            description: formData.get('description'),
+                            location: formData.get('location'),
+                            date: formData.get('date'),
+                            contact: formData.get('contact'),
+                            image: data.image || (imagePreview ? imagePreview.src : '/Assets/placeholder.jpeg'),
+                            status: 'active',
+                            createdAt: data.createdAt || new Date().toISOString()
+                        };
+                        
+                        const existingItems = JSON.parse(localStorage.getItem('postedItems') || '[]');
+                        existingItems.push(itemData);
+                        localStorage.setItem('postedItems', JSON.stringify(existingItems));
+                        
+                        // Hide loading overlay
+                        if (loadingOverlay) {
+                            loadingOverlay.style.display = 'none';
+                        }
+                        
+                        // Show success popup
+                        if (notificationPopup) {
+                            notificationPopup.style.display = 'flex';
+                            
+                            if (successIcon) successIcon.style.display = 'block';
+                            if (errorIcon) errorIcon.style.display = 'none';
+                            if (popupTitle) popupTitle.textContent = 'Item Posted Successfully!';
+                            
+                            // Redirect after 2 seconds
+                            setTimeout(() => {
+                                window.location.href = 'find-items.html';
+                            }, 2000);
+                        } else {
+                            // If popup doesn't exist, just redirect
+                            window.location.href = 'find-items.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        
+                        // Hide loading overlay
+                        if (loadingOverlay) {
+                            loadingOverlay.style.display = 'none';
+                        }
+                        
+                        // Show error popup
+                        if (notificationPopup) {
+                            notificationPopup.style.display = 'flex';
+                            
+                            if (successIcon) successIcon.style.display = 'none';
+                            if (errorIcon) errorIcon.style.display = 'block';
+                            if (popupTitle) popupTitle.textContent = 'Error Posting Item: ' + error.message;
+                        }
+                    });
+                });
+            }
+            
+            // Close popup button
+            const closePopupBtn = document.querySelector('#close-popup');
+            if (closePopupBtn && notificationPopup) {
+                closePopupBtn.addEventListener('click', function() {
+                    notificationPopup.style.display = 'none';
+                });
+            }
+        });
+    </script>
 </body>
 </html>

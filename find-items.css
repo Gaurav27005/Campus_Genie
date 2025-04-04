@@ -158,3 +158,36 @@ body {
 .back-button i {
     font-size: 1.1rem;
 }
+
+.no-items-message {
+    text-align: center;
+    padding: 40px;
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.no-items-message h3 {
+    color: #ff6b6b;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.no-items-message p {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.no-items-message a {
+    color: #ff9f43;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+.no-items-message a:hover {
+    color: #ff6b6b;
+}
