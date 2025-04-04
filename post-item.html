@@ -73,17 +73,7 @@
                     </div>
                 </div>
                 
-                <!-- Replace the sample images section with this -->
-                <div class="form-group">
-                    <label>Or select from sample images:</label>
-                    <div class="sample-images">
-                        <img src="/Assets/buds.jpeg" alt="Buds" class="sample-image" data-url="/Assets/buds.jpeg">
-                        <img src="/Assets/calci.jpeg" alt="Calculator" class="sample-image" data-url="/Assets/calci.jpeg">
-                        <img src="/Assets/id.jpeg" alt="ID Card" class="sample-image" data-url="/Assets/id.jpeg">
-                        <img src="/Assets/laptop charger.jpeg" alt="Laptop Charger" class="sample-image" data-url="/Assets/laptop charger.jpeg">
-                        <img src="/Assets/notebook.jpeg" alt="Notebook" class="sample-image" data-url="/Assets/notebook.jpeg">
-                    </div>
-                </div>
+                <!-- Remove the duplicate file upload and sample images sections -->
                 
                 <div class="form-actions">
                     <button type="submit" class="submit-btn">Post Item</button>
@@ -152,7 +142,7 @@
             // Image preview functionality
             const imageInput = document.getElementById('item-image');
             const imagePreview = document.getElementById('image-preview');
-            let useFileUpload = false;
+            let useFileUpload = true; // Always use file upload now
             
             if (imageInput && imagePreview) {
                 imageInput.addEventListener('change', function() {
@@ -161,12 +151,6 @@
                         
                         reader.onload = function(e) {
                             imagePreview.src = e.target.result;
-                            useFileUpload = true;
-                            
-                            // Remove selected class from all sample images
-                            document.querySelectorAll('.sample-image').forEach(img => {
-                                img.classList.remove('selected');
-                            });
                         }
                         
                         reader.readAsDataURL(this.files[0]);
@@ -174,28 +158,7 @@
                 });
             }
             
-            // Sample image selection
-            const sampleImages = document.querySelectorAll('.sample-image');
-            
-            sampleImages.forEach(img => {
-                img.addEventListener('click', function() {
-                    if (imagePreview) {
-                        // Set preview to the selected sample image
-                        imagePreview.src = this.getAttribute('data-url');
-                        useFileUpload = false;
-                        
-                        // Clear file input if it exists
-                        if (imageInput) {
-                            imageInput.value = '';
-                        }
-                        
-                        // Remove selected class from all images
-                        sampleImages.forEach(i => i.classList.remove('selected'));
-                        // Add selected class to clicked image
-                        this.classList.add('selected');
-                    }
-                });
-            });
+            // Remove sample image selection code
             
             // Form submission
             const form = document.getElementById('post-item-form');
