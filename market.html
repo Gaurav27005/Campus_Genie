@@ -20,6 +20,12 @@
         </nav>
     </header>
 
+    <!-- Add auth check message container -->
+    <div id="auth-message" class="auth-message" style="display: none;">
+        <p>Please log in to access the marketplace.</p>
+        <a href="login.html" class="login-redirect-btn">Login Now</a>
+    </div>
+
     <div class="marketplace">
         <div class="market-header">
             <h1>Campus Marketplace</h1>
@@ -102,8 +108,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('token');
             const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const marketplace = document.querySelector('.marketplace');
+            const authMessage = document.getElementById('auth-message');
             
             if (token && user) {
+                // User is logged in
+                marketplace.style.display = 'block';
+                authMessage.style.display = 'none';
+                
                 // Get user's first initial
                 const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
                 
@@ -120,7 +132,7 @@
                 const dropdownMenu = document.createElement('div');
                 dropdownMenu.className = 'dropdown-menu';
                 
-                // Add logout option
+                // Add logout option with token cleanup
                 const logoutOption = document.createElement('a');
                 logoutOption.href = '#';
                 logoutOption.className = 'dropdown-item';
@@ -129,7 +141,7 @@
                     e.preventDefault();
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
-                    window.location.href = '/';
+                    window.location.href = 'login.html';
                 });
                 
                 dropdownMenu.appendChild(logoutOption);
@@ -147,7 +159,10 @@
                     }
                 });
             } else {
-                // User is not logged in, add login button
+                // User is not logged in
+                marketplace.style.display = 'none';
+                authMessage.style.display = 'block';
+                
                 const navLeft = document.querySelector('.nav-left');
                 const loginBtn = document.createElement('a');
                 loginBtn.href = 'login.html';

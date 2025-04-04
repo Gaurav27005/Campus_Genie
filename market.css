@@ -296,3 +296,32 @@ select {
 .listing-card:not([data-category="buy-sell"]):not([data-category="all"]) {
     display: none;
 }
+
+.auth-message {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.auth-message p {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.login-redirect-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.login-redirect-btn:hover {
+    background-color: #ff5252;
+}

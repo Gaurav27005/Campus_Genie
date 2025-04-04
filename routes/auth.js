@@ -107,4 +107,15 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// Add this route to your existing auth.js file
+router.get('/verify', auth, (req, res) => {
+    res.json({ 
+        message: 'Authentication successful', 
+        user: { 
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email
+        } 
+    });
+});
 module.exports = router;

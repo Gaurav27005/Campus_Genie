@@ -7,6 +7,8 @@ const multer = require('multer');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+// Add this with your other require statements
+const auth = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,6 +48,15 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static(path.join(__dirname, '/')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Add this line near your other route imports
+const marketplaceRoutes = require('./routes/marketplace');
+
+// Add this line with your other app.use statements
+app.use('/api/marketplace', marketplaceRoutes);
+
+// Make sure you have this line to serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
@@ -205,24 +216,12 @@ app.post('/api/items/upload', upload.single('image'), async (req, res) => {
 });
 
 // User Schema
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+// Remove these lines from server.js
+// const userSchema = new mongoose.Schema({...});
+// const User = mongoose.model('User', userSchema);
 
-const User = mongoose.model('User', userSchema);
+// Add this line at the top with your other requires
+const User = require('./models/User');
 
 // Authentication routes
 app.post('/api/auth/register', async (req, res) => {
