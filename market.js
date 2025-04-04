@@ -40,21 +40,22 @@ function initializeFilters() {
     
         // Sort listings by price
         listingsArray.sort((a, b) => {
-            const priceA = parseFloat(a.querySelector('.price').textContent.replace(/[^0-9.]/g, ''));
-            const priceB = parseFloat(b.querySelector('.price').textContent.replace(/[^0-9.]/g, ''));
+            const priceA = parseFloat(a.querySelector('.price')?.textContent.replace(/[^\d.]/g, '')) || 0;
+            const priceB = parseFloat(b.querySelector('.price')?.textContent.replace(/[^\d.]/g, '')) || 0;
             return priceA - priceB;
         });
     
-        // Apply filters and display sorted listings
+        // Apply filters
         listingsArray.forEach(card => {
-            const price = parseFloat(card.querySelector('.price').textContent.replace(/[^0-9.]/g, ''));
-            const categoryMatch = activeCategory === 'all' || card.dataset.category === activeCategory;
-            const priceMatch = price >= minPrice && (maxPrice === Infinity || price <= maxPrice);
-    
-            if (categoryMatch && priceMatch) {
+            const cardCategory = card.dataset.category;
+            const cardPrice = parseFloat(card.querySelector('.price')?.textContent.replace(/[^\d.]/g, '')) || 0;
+            
+            // Show card if it matches all filters
+            const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory || cardCategory === 'buy-sell';
+            const matchesPrice = cardPrice >= minPrice && cardPrice <= maxPrice;
+            
+            if (matchesCategory && matchesPrice) {
                 card.style.display = 'block';
-                // Reorder the cards in the DOM based on price
-                card.parentNode.appendChild(card);
             } else {
                 card.style.display = 'none';
             }
@@ -346,12 +347,7 @@ function initializeListingInteractions() {
                         <div class="form-group">
                             <label for="adCategory">Category *</label>
                             <select id="adCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="buy-sell">🛍️ Buy & Sell</option>
-                                <option value="rental">🏠 Rental</option>
-                                <option value="jobs">💼 Jobs</option>
-                                <option value="tickets">🎫 Event Tickets</option>
-                                <option value="ride-share">🚗 Ride Share</option>
+                                <option value="buy-sell" selected>🛍️ Buy & Sell</option>
                             </select>
                         </div>
                         <div class="form-group">

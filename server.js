@@ -61,6 +61,7 @@ mongoose.connect('mongodb+srv://campuskagenie:viratkolhi@campusgenie.6l16gcz.mon
     console.log('MongoDB Connection Error:', err);
 });
 
+// Item Schema - Update collection name to 'lostandfound'
 // Item Schema
 const itemSchema = new mongoose.Schema({
     type: String,
@@ -69,7 +70,10 @@ const itemSchema = new mongoose.Schema({
     location: String,
     date: Date,
     contact: String,
-    image: String,
+    image: {
+        data: Buffer,
+        contentType: String
+    },
     status: {
         type: String,
         default: 'active'
@@ -78,7 +82,7 @@ const itemSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-}, { collection: 'lostandfound' }); // Explicitly set collection name
+}, { collection: 'lostandfound' }); // Collection name remains 'lostandfound'
 
 const Item = mongoose.model('Item', itemSchema);
 
@@ -86,7 +90,39 @@ const Item = mongoose.model('Item', itemSchema);
 app.get('/api/items', async (req, res) => {
     try {
         const items = await Item.find().sort({ createdAt: -1 });
-        res.json(items);
+        
+        // Convert binary image data to base64 for client-side display
+        const processedItems = items.map(item => {
+            const itemObj = item.toObject();
+            
+            try {
+                if (itemObj.image && itemObj.image.data) {
+                    // Ensure we're working with a Buffer
+                    const buffer = Buffer.isBuffer(itemObj.image.data) 
+                        ? itemObj.image.data 
+                        : Buffer.from(itemObj.image.data);
+                    
+                    if (buffer.length > 0) {
+                        const base64 = buffer.toString('base64');
+                        itemObj.image = `data:${itemObj.image.contentType || 'image/jpeg'};base64,${base64}`;
+                        console.log(`Processed image: ${buffer.length} bytes, base64 length: ${base64.length}`);
+                    } else {
+                        console.log('Empty buffer detected');
+                        itemObj.image = '/Assets/placeholder.jpeg';
+                    }
+                } else {
+                    console.log('No image data found');
+                    itemObj.image = '/Assets/placeholder.jpeg';
+                }
+            } catch (error) {
+                console.error('Error processing image:', error);
+                itemObj.image = '/Assets/placeholder.jpeg';
+            }
+            
+            return itemObj;
+        });
+        
+        res.json(processedItems);
     } catch (err) {
         console.error('Error fetching items:', err);
         res.status(500).json({ error: 'Server error' });
@@ -96,21 +132,51 @@ app.get('/api/items', async (req, res) => {
 // Handle file upload
 app.post('/api/items/upload', upload.single('image'), async (req, res) => {
     try {
-        let imagePath;
+        let imageData = null;
         
-        // Check if a file was uploaded or a sample image was used
+        // Check if a file was uploaded
         if (req.file) {
-            // Use the uploaded file path
-            imagePath = `/uploads/${req.file.filename}`;
-        } else if (req.body.imageUrl) {
-            // Use the provided sample image URL
-            imagePath = req.body.imageUrl;
-        } else {
-            // Use a default placeholder
-            imagePath = '/Assets/placeholder.jpeg';
+            try {
+                // Read file from disk and prepare for MongoDB storage
+                const imgData = fs.readFileSync(req.file.path);
+                
+                if (imgData && imgData.length > 0) {
+                    imageData = {
+                        data: imgData,
+                        contentType: req.file.mimetype
+                    };
+                    console.log(`Successfully read image: ${req.file.originalname}, Size: ${imgData.length} bytes`);
+                } else {
+                    console.error('Empty image file');
+                }
+                
+                // Remove the file from uploads folder after reading
+                fs.unlinkSync(req.file.path);
+            } catch (error) {
+                console.error('Error reading uploaded file:', error);
+            }
         }
         
-        // Create new item with the image path
+        // If no valid image was uploaded, use placeholder
+        if (!imageData || !imageData.data || imageData.data.length === 0) {
+            try {
+                const placeholderPath = path.join(__dirname, 'Assets', 'placeholder.jpeg');
+                if (fs.existsSync(placeholderPath)) {
+                    const imgData = fs.readFileSync(placeholderPath);
+                    imageData = {
+                        data: imgData,
+                        contentType: 'image/jpeg'
+                    };
+                    console.log('Using placeholder image');
+                } else {
+                    console.error('Placeholder image not found at:', placeholderPath);
+                }
+            } catch (error) {
+                console.error('Error loading placeholder:', error);
+            }
+        }
+        
+        // Create new item with the image data
         const newItem = new Item({
             type: req.body.type,
             title: req.body.title,
@@ -118,12 +184,20 @@ app.post('/api/items/upload', upload.single('image'), async (req, res) => {
             location: req.body.location,
             date: req.body.date,
             contact: req.body.contact,
-            image: imagePath,
+            image: imageData,
             status: 'active'
         });
         
         await newItem.save();
-        res.status(201).json(newItem);
+        
+        // Convert binary image data to base64 for response
+        const itemObj = newItem.toObject();
+        if (itemObj.image && itemObj.image.data) {
+            const base64 = Buffer.from(itemObj.image.data).toString('base64');
+            itemObj.image = `data:${itemObj.image.contentType};base64,${base64}`;
+        }
+        
+        res.status(201).json(itemObj);
     } catch (err) {
         console.error('Error saving item:', err);
         res.status(500).json({ error: 'Server error' });

@@ -20,15 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function fetchItems(status = null) {
   try {
-    let url = '/api/lostfound';
+    // Use the correct API endpoint for the lostandfound collection
+    let url = '/api/items';
     if (status) {
       url += `?status=${status}`;
     }
     
+    console.log('Fetching items from:', url);
     const response = await fetch(url);
     const items = await response.json();
     
-    if (response.ok) {
+    if (response.status === 200) {
+      console.log('Items retrieved:', items.length);
       displayItems(items);
     } else {
       console.error('Error fetching items:', items.message);

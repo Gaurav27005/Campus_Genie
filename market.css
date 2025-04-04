@@ -290,3 +290,9 @@ select {
         z-index: 100;
     }
 }
+
+
+/* Hide non-buy-sell categories by default */
+.listing-card:not([data-category="buy-sell"]):not([data-category="all"]) {
+    display: none;
+}
