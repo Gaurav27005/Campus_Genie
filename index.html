@@ -154,11 +154,20 @@
                         dropdownMenu.classList.remove('show');
                     }
                 });
+                
+                // Position the dropdown menu
+                dropdownMenu.style.right = 'auto';
+                dropdownMenu.style.left = '0';
             }
         });
-        // In your existing script, add this line after creating the dropdown menu
-        dropdownMenu.style.right = 'auto';
-        dropdownMenu.style.left = '0';
+        
+        // Add this function to define the dropdownMenu variable
+        function toggleDropdown() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            if (dropdownMenu) {
+                dropdownMenu.classList.toggle('show');
+            }
+        }
     </script>
 </body>
 

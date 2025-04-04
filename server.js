@@ -5,6 +5,8 @@ const path = require('path');
 const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,7 +49,7 @@ app.use(express.static(path.join(__dirname, '/')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://campuskagenie:viratkolhi@campusgenie.6l16gcz.mongodb.net/campusGenie', {
+mongoose.connect('mongodb+srv://campuskagenie:viratkolhi@campusgenie.6l16gcz.mongodb.net/test', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -128,16 +130,106 @@ app.post('/api/items/upload', upload.single('image'), async (req, res) => {
     }
 });
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
-
-// Catch-all route to serve index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+// User Schema
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const User = mongoose.model('User', userSchema);
+
+// Authentication routes
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ error: 'User already exists' });
+        }
+        
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
+        // Create new user
+        user = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+        
+        await user.save();
+        
+        // Create JWT token
+        const token = jwt.sign(
+            { userId: user.id },
+            'your_jwt_secret', // Replace with a real secret in production
+            { expiresIn: '1h' }
+        );
+        
+        res.status(201).json({ 
+            token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } catch (err) {
+        console.error('Registration error:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
+        
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
+        
+        // Create JWT token
+        const token = jwt.sign(
+            { userId: user.id },
+            'your_jwt_secret', // Replace with a real secret in production
+            { expiresIn: '1h' }
+        );
+        
+        res.json({ 
+            token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 // Add this route after your other routes
@@ -180,4 +272,16 @@ app.get('/api/debug', async (req, res) => {
         console.error('Debug error:', err);
         res.status(500).json({ error: err.message });
     }
+});
+
+// Serve static files
+app.use(express.static(path.join(__dirname)));
+
+// Catch-all route to serve index.html - THIS SHOULD BE LAST
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
