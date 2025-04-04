@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Map - Campus Genie</title>
-    <link rel="icon" type="image/png" href="../assets/favicon.ico">
+    <link rel="icon" type="image/png" href="/Assets/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="viewmap.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <a href="index.html" class="Genie"><img src="../assets/noto_man-genie.png" alt="Genie"></a>
-            <a href="index.html" class="brand">Campus Genie - MAP</a>
-        </div>
+        <a href="index.html" class="Genie"><img src="/Assets/favicon.ico" alt="Genie"></a>
+        <a href="index.html" class="brand">Campus Genie</a>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="login.html" class="login-btn" id="auth-button">Login</a>
+            </div>
+        </nav>
     </header>
 
     <main>
         <div class="floor-section">
-            <img src="../assets/image 6.png" alt="Map Illustration" class="floor-illustration">
+            <img src="/Assets/image 6.png" alt="Map Illustration" class="floor-illustration">
             <div class="floor-buttons">
                 <button id="ground-floor" class="btn" onclick="showMap('ground')">Ground Floor</button>
                 <button id="first-floor" class="btn" onclick="showMap('first')">First Floor</button>
@@ -29,45 +32,121 @@
 
         <!-- Campus Map Display Below -->
         <div class="map-container">
-            <img id="map-image" src="../assets/DYPCOE.jpg" alt="Selected Campus Map" class="map-img">
+            <img id="map-image" src="/Assets/DYPCOE.jpg" alt="Selected Campus Map" class="map-img">
         </div>
 
         <!-- Google Maps Location -->
         <div class="google-map">
             <h3>Locate Us on Google Maps</h3>
             <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1890.213487479512!2d73.75617343379163!3d18.644826388116837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9f1ca8dab03%3A0x6237cfbd36f9acf9!2sD.Y.%20Patil%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1742577462439!5m2!1sen!2sin&t=k"
-          width="100%"
-          height="450"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          width=100%
-          height="450"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-        >
-        </iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1890.213487479512!2d73.75617343379163!3d18.644826388116837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9f1ca8dab03%3A0x6237cfbd36f9acf9!2sD.Y.%20Patil%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1742577462439!5m2!1sen!2sin&t=k"
+                width="100%"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <img src="/Assets/noto_man-genie.png" alt="Campus Genie Logo">
+                    <h2>Campus Genie</h2>
+                </div>
+                <div class="footer-brand-content">
+                    <p>Simplifying student life by providing essential resources and fostering a connected campus community. Your one-stop solution for all campus needs.</p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <div class="footer-section">
+                    <div class="icon">📧</div>
+                    <a href="mailto:CampusGenie19@gmail.com">CampusGenie19@gmail.com</a>
+                </div>
+                <div class="footer-section">
+                    <div class="icon">📍</div>
+                    <a href="https://www.google.com/maps/place/Akurdi,+Pune,+Maharashtra+412101" target="_blank">
+                        Akurdi, Pune 412101
+                    </a>
+                </div>
+                <div class="footer-section">
+                    <div class="icon">📞</div>
+                    <a href="tel:+917020000000">+91 7020000000</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Campus Genie. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <script>
         function showMap(floor) {
             const mapImage = document.getElementById('map-image');
             if (floor === 'ground') {
-                mapImage.src = 'ground-floor-map.jpg'; // Replace with your Ground Floor Map image
+                mapImage.src = '/Assets/ground-floor-map.jpg'; // Replace with your Ground Floor Map image
             } else if (floor === 'first') {
-                mapImage.src = 'first-floor-map.jpg'; // Replace with your First Floor Map image
+                mapImage.src = '/Assets/first-floor-map.jpg'; // Replace with your First Floor Map image
             } else if (floor === 'second') {
-                mapImage.src = 'second-floor-map.jpg'; // Replace with your Second Floor Map image
+                mapImage.src = '/Assets/second-floor-map.jpg'; // Replace with your Second Floor Map image
             }
         }
+
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButton = document.getElementById('auth-button');
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (token && user) {
+                // Get user's first initial
+                const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
+                
+                // Replace login button with user avatar
+                const navLeft = document.querySelector('.nav-left');
+                navLeft.innerHTML = ''; // Clear the login button
+                
+                // Create user avatar element
+                const userAvatar = document.createElement('div');
+                userAvatar.className = 'user-avatar';
+                userAvatar.textContent = userInitial;
+                navLeft.appendChild(userAvatar);
+                
+                // Create dropdown menu
+                const dropdownMenu = document.createElement('div');
+                dropdownMenu.className = 'dropdown-menu';
+                
+                // Add logout option
+                const logoutOption = document.createElement('a');
+                logoutOption.href = '#';
+                logoutOption.className = 'dropdown-item';
+                logoutOption.textContent = 'Logout';
+                logoutOption.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                });
+                
+                dropdownMenu.appendChild(logoutOption);
+                navLeft.appendChild(dropdownMenu);
+                
+                // Toggle dropdown on avatar click
+                userAvatar.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

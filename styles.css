@@ -276,9 +276,77 @@ header {
 footer {
     background-color: rgba(20, 20, 20, 0.95);
     color: #ffffff;
-    text-align: center;
-    padding: 20px;
+    padding: 40px 20px;
     backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.footer-brand img {
+    width: 50px;
+    height: auto;
+}
+
+.footer-brand-content h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(270deg, #ff6b6b, #ff9f43);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-brand-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 500px;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-section .icon {
+    font-size: 1.5rem;
+    color: #ff9f43;
+}
+
+.footer-section a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #ff9f43;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes gradient {
@@ -310,17 +378,19 @@ footer {
 
 /* Swap the positions by adjusting the order */
 .nav-left {
-    order: 2;
+    order: 1;
     position: relative;
+    margin-left: auto; /* Add this to push to the right */
 }
 
 .nav-right {
-    order: 1;
+    order: 2;
 }
 
+/* Remove or comment out these sections */
 .contact-btn {
     margin-left: 0;
-    margin-right: 60px; /* Increased from 20px to shift right by ~10mm */
+    margin-right: 20px;
 }
 
 /* Logout Button Styles */
@@ -357,6 +427,7 @@ footer {
         margin-right: 0;
     }
     
+    /* In the media queries section, remove or comment out */
     .contact-btn {
         margin-left: 0;
     }
