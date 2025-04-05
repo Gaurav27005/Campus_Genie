@@ -562,7 +562,6 @@ function createNewListing(category, title, price, description, location, conditi
         listingCard.innerHTML = `
             <div class="listing-image">
                 <img src="${data.image}" alt="${title}">
-                <button class="favorite-btn">❤️</button>
             </div>
             <div class="listing-details">
                 <h3>${title}</h3>
@@ -572,9 +571,8 @@ function createNewListing(category, title, price, description, location, conditi
                     <span>Posted by ${sellerName}</span>
                     <span>Just now</span>
                 </div>
-                <div class="listing-actions">
-                    <button class="contact-btn">Contact Seller</button>
-                    <button class="report-btn">⚠️</button>
+                <div class="contact-info">
+                    <p><strong>Contact:</strong> ${contact}</p>
                 </div>
             </div>
         `;
@@ -582,23 +580,6 @@ function createNewListing(category, title, price, description, location, conditi
         // Add the new listing to the listings grid
         const listingsGrid = document.querySelector('.listings-grid');
         listingsGrid.insertBefore(listingCard, listingsGrid.firstChild);
-        
-        // Add event listeners to the new listing's buttons
-        const favoriteBtn = listingCard.querySelector('.favorite-btn');
-        favoriteBtn.addEventListener('click', function() {
-            this.textContent = this.textContent === '❤️' ? '💖' : '❤️';
-            showNotification('Added to favorites!');
-        });
-        
-        const contactBtn = listingCard.querySelector('.contact-btn');
-        contactBtn.addEventListener('click', function() {
-            openContactModal(title, sellerName);
-        });
-        
-        const reportBtn = listingCard.querySelector('.report-btn');
-        reportBtn.addEventListener('click', function() {
-            openReportModal(title);
-        });
         
         // Close the modal
         document.querySelector('.contact-modal').remove();
@@ -661,46 +642,30 @@ function loadListingsFromDatabase() {
                         day: 'numeric'
                     });
                     
+                    // Get user info from localStorage
+                    const user = JSON.parse(localStorage.getItem('user') || '{}');
+                    
                     // Create the HTML structure for the listing
                     listingCard.innerHTML = `
                         <div class="listing-image">
                             <img src="${item.image}" alt="${item.title}">
-                            <button class="favorite-btn">❤️</button>
                         </div>
                         <div class="listing-details">
                             <h3>${item.title}</h3>
                             <p class="price">₹${item.price}</p>
                             <p class="description">${item.description}</p>
                             <div class="seller-info">
-                                <span>Posted by ${item.sellerName || 'Anonymous'}</span>
+                                <span>Posted by ${user.name || item.sellerName || 'User'}</span>
                                 <span>${formattedDate}</span>
                             </div>
-                            <div class="listing-actions">
-                                <button class="contact-btn">Contact Seller</button>
-                                <button class="report-btn">⚠️</button>
+                            <div class="contact-info">
+                                <p><strong>Contact:</strong> ${item.contact || 'No contact information provided'}</p>
                             </div>
                         </div>
                     `;
                     
                     // Add the listing card to the grid
                     listingsGrid.appendChild(listingCard);
-                    
-                    // Add event listeners to the listing's buttons
-                    const favoriteBtn = listingCard.querySelector('.favorite-btn');
-                    favoriteBtn.addEventListener('click', function() {
-                        this.textContent = this.textContent === '❤️' ? '💖' : '❤️';
-                        showNotification('Added to favorites!');
-                    });
-                    
-                    const contactBtn = listingCard.querySelector('.contact-btn');
-                    contactBtn.addEventListener('click', function() {
-                        openContactModal(item.title, item.sellerName || 'Seller');
-                    });
-                    
-                    const reportBtn = listingCard.querySelector('.report-btn');
-                    reportBtn.addEventListener('click', function() {
-                        openReportModal(item.title);
-                    });
                 });
             }
         })
