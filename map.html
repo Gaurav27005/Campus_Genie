@@ -87,16 +87,21 @@
         function showMap(floor) {
             const mapImage = document.getElementById('map-image');
             if (floor === 'ground') {
-                mapImage.src = '/Assets/ground-floor-map.jpg'; // Replace with your Ground Floor Map image
+                mapImage.src = '/Assets/GF.png'; // Ground Floor map
             } else if (floor === 'first') {
-                mapImage.src = '/Assets/first-floor-map.jpg'; // Replace with your First Floor Map image
+                mapImage.src = '/Assets/FF.png'; // First Floor map
             } else if (floor === 'second') {
-                mapImage.src = '/Assets/second-floor-map.jpg'; // Replace with your Second Floor Map image
+                mapImage.src = '/Assets/SF.png'; // Second Floor map
+            } else {
+                mapImage.src = '/Assets/DYPCOE.jpg'; // Default image when no floor is selected
             }
         }
 
         // Check if user is logged in
         document.addEventListener('DOMContentLoaded', function() {
+            // Set default map on page load to DYPCOE.jpg
+            document.getElementById('map-image').src = '/Assets/DYPCOE.jpg';
+            
             const authButton = document.getElementById('auth-button');
             const token = localStorage.getItem('token');
             const user = JSON.parse(localStorage.getItem('user') || '{}');
