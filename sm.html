@@ -67,7 +67,7 @@
     <main class="study-materials">
         <h1>Study Materials</h1>
         
-        <!-- Replace with two rows of subject buttons -->
+        <!-- Subject buttons with two rows -->
         <div class="subject-tabs">
             <div class="subject-row">
                 <button class="subject-btn active" data-subject="dm">DM</button>
@@ -91,6 +91,11 @@
                 <button class="option-btn" data-option="notes">Notes</button>
                 <button class="option-btn" data-option="pyq">PYQ</button>
             </div>
+        </div>
+        
+        <!-- Add this new section for materials content -->
+        <div id="materials-content" class="materials-content">
+            <!-- Content will be loaded dynamically -->
         </div>
     </main>
 
@@ -181,9 +186,54 @@
             initializeSubjectButtons();
         });
         
+        // Define the materials links object
+        const materialsLinks = {
+            dm: {
+                notes: "https://drive.google.com/drive/folders/1LmjZ8OOZ5r-K513xSpwaZ0xqmSitjnkt?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1H_8LiskvNc_6b34DbW--L7bBGqvY8Iiz?usp=drive_link"
+            },
+            ldco: {
+                notes: "https://drive.google.com/drive/folders/1D5uF-9AikidzogSibYoocvq2m1cirwLN?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1fxHtmnGfAwsoMwBbnLDgJppwz9rTrSgf?usp=drive_link"
+            },
+            bcn: {
+                notes: "https://drive.google.com/drive/folders/13oGdiggaEkdSUHLWWdZZeVY_lY8XlI_K?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1VgTsWOM0p_Ca8mHZWHM9rTfmaE6AMot_?usp=drive_link"
+            },
+            oop: {
+                notes: "https://drive.google.com/drive/folders/16k3JU2q0Axu_F6tn2iWYbLX1Sbm-Q0Ox?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1y4U5m-48FqAx6YytcpNpMNLgTdnIf79k?usp=drive_link"
+            },
+            dsa: {
+                notes: "https://drive.google.com/drive/folders/1bZxqfUPkjwwpnLdcwSZtPl686Jg0u18P?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1jjtXuo2VVWcMhxbojy2zKodoWOaDj9X3?usp=drive_link"
+            },
+            dbms: {
+                notes: "https://drive.google.com/drive/folders/1cyuxnfwrlBpKrMiG6unUlZGAko-Q3g0_?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1XHxi8VC5UvSRnR5iegCVtJ5lLnvQL7wn?usp=drive_link"
+            },
+            m3: {
+                notes: "https://drive.google.com/drive/folders/1ELHx5aqkg0wMflAI2m-8K40aEQWIJbme?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1dtZIccsl-rOZxhmK8mRQAXeQkTw4CRQt?usp=drive_link"
+            },
+            pa: {
+                notes: "https://drive.google.com/drive/folders/1JQ_1rw6tbe5dwRflsjLKzewSDHUDFTAc?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/12Ui2LB7mhlSiGlWv8uqzfEFgiU7mhAKR?usp=drive_link"
+            },
+            se: {
+                notes: "https://drive.google.com/drive/folders/1M4Q6gs6OoZNv8AIBlBZuk5XC0yKPDxNZ?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1X9HxfNkpLq1iGWLMej95bDlv58vADKRl?usp=drive_link"
+            },
+            cg: {
+                notes: "https://drive.google.com/drive/folders/1uU42IfYXeZueKk8D4bdbVbvPQpcaiGOC?usp=drive_link",
+                pyq: "https://drive.google.com/drive/folders/1i_6UxNIaLq1CId7hjJK7Ff7Mz1QCXYec?usp=drive_link"
+            }
+        };
+        
         function initializeSubjectButtons() {
             const subjectButtons = document.querySelectorAll('.subject-btn');
             const optionsSlider = document.getElementById('options-slider');
+            const materialsContent = document.getElementById('materials-content');
             
             subjectButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -201,6 +251,9 @@
                     
                     // Set current subject data attribute
                     optionsSlider.setAttribute('data-current-subject', subject);
+                    
+                    // Clear any previous content
+                    materialsContent.innerHTML = '';
                 });
             });
             
@@ -211,17 +264,59 @@
                     const option = button.getAttribute('data-option');
                     const currentSubject = optionsSlider.getAttribute('data-current-subject');
                     
-                    // Here you would handle the option selection
-                    console.log(`Selected ${option} for ${currentSubject}`);
-                    
                     // Add active class to clicked option
                     optionButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
+                    
+                    // Get the link for the selected subject and option
+                    const link = materialsLinks[currentSubject][option];
+                    
+                    // Display the content with link
+                    displayMaterialContent(currentSubject, option, link);
                 });
             });
+        }
+        
+        function displayMaterialContent(subject, option, link) {
+            const materialsContent = document.getElementById('materials-content');
+            const subjectFullNames = {
+                dm: "Discrete Mathematics",
+                ldco: "Logic Design & Computer Organization",
+                bcn: "Basics of Computer Networks",
+                oop: "Object-Oriented Programming",
+                dsa: "Data Structures & Algorithms",
+                dbms: "Database Management Systems",
+                m3: "Mathematics-III",
+                pa: "Processor Architecture",
+                se: "Software Engineering",
+                cg: "Computer Graphics"
+            };
             
-            // Remove automatic trigger of first button click
-            // subjectButtons[0].click();
+            const optionFullNames = {
+                notes: "Lecture Notes",
+                pyq: "Previous Year Questions"
+            };
+            
+            // Create content with link
+            materialsContent.innerHTML = `
+                <div class="material-card">
+                    <h2>${subjectFullNames[subject]}</h2>
+                    <h3>${optionFullNames[option]}</h3>
+                    <p>Click below to access the materials:</p>
+                    <a href="${link}" target="_blank" class="material-link">
+                        <div class="material-button">
+                            <span>Open ${optionFullNames[option]}</span>
+                            <span class="material-icon">📁</span>
+                        </div>
+                    </a>
+                </div>
+            `;
+            
+            // Show the content with animation
+            materialsContent.style.display = 'block';
+            setTimeout(() => {
+                materialsContent.classList.add('fade-in');
+            }, 50);
         }
     </script>
     
