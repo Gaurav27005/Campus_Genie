@@ -1,0 +1,1 @@
+A centralized web-based platform designed to simplify college life by offering features like study material sharing, second-hand item exchange, PG (Paying Guest) locator, and an interactive campus map.
